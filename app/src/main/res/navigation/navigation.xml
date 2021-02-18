@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/titleFragment">
+
+    <fragment
+        android:id="@+id/titleFragment"
+        android:name="com.example.oop1parliament.TitleFragment"
+        android:label="fragment_title"
+        tools:layout="@layout/fragment_title" >
+        <action
+            android:id="@+id/action_titleFragment_to_partyFragment"
+            app:destination="@id/partyFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/memberFragment"
+        android:name="com.example.oop1parliament.MemberFragment"
+        android:label="MemberFragment"
+        tools:layout="@layout/fragment_member">
+        <action
+            android:id="@+id/action_memberFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.oop1parliament.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
+    <fragment
+        android:id="@+id/partyFragment"
+        android:name="com.example.oop1parliament.PartyFragment"
+        android:label="fragment_party"
+        tools:layout="@layout/fragment_party" >
+        <action
+            android:id="@+id/action_partyFragment_to_memberFragment"
+            app:destination="@id/memberFragment" />
+    </fragment>
+</navigation>

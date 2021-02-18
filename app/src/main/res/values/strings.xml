@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">oop1parliament</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="play">Play</string>
+    <string name="launch_app">Launch App!</string>
+    <string-array name="parties_array">
+        <item>all</item>
+        <item>Vihreät</item>
+        <item>Vasemmistoliitto</item>
+        <item>Keskusta</item>
+        <item>Perussuomalaiset</item>
+        <item>SDP</item>
+        <item>Kristillisdemokraatit</item>
+        <item>Kokoomus</item>
+        <item>Suomen Ruotsalainen kansanpuolue</item>
+    </string-array>
+</resources>
