@@ -52,8 +52,8 @@ class MemberFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MemberViewModel::class.java)
         binding.viewModel = viewModel
 
-        Log.d("FFF", "${viewModel.members.value?.filter { it.party=="vas" }?.map { it.firstname }}")
-        Log.d("FFF", "${viewModel.memberList}")
+        //Log.d("FFF", "${viewModel.members.value?.filter { it.party=="vas" }?.map { it.firstname }}")
+        //Log.d("FFF", "${viewModel.memberList}")
 
         val memberDetail = viewModel.p.members.filter { it.hetekaId==selectedHeteka }.mapNotNull { it }
 

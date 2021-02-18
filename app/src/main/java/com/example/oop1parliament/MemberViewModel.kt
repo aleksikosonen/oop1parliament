@@ -6,27 +6,7 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 
 class MemberViewModel(application: Application) : AndroidViewModel(application) {
-    private val memberRepository = MemberRepository(ParliamentMemberDB.getInstance(application.applicationContext))
-    val memberList = memberRepository.members
 
-    private val _members = MutableLiveData<List<ParliamentMember>>()
-    val members : LiveData<List<ParliamentMember>>
-        get() = _members
-
-    init {
-        insertMembers()
-    }
-
-    private fun insertMembers() {
-        viewModelScope.launch {
-            try {
-                memberRepository.getMembers()
-
-            } catch (e: Exception) {
-                Log.d("***", e.toString())
-            }
-        }
-    }
 
     val p = Parliament(ParliamentMembersData.members)
 

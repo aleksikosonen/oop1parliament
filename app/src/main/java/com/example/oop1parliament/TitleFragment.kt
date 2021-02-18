@@ -8,9 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.navigation.findNavController
 import com.example.oop1parliament.databinding.FragmentTitleBinding
 import kotlinx.coroutines.launch
@@ -78,6 +76,27 @@ class TitleFragment : Fragment() {
 }
 
 class AddMemberViewModel(application: Application) : AndroidViewModel(application) {
+    private val memberRepository = MemberRepository(ParliamentMemberDB.getInstance(application.applicationContext))
+    val memberList = memberRepository.members
+
+    private val _members = MutableLiveData<List<ParliamentMember>>()
+    val members : LiveData<List<ParliamentMember>>
+        get() = _members
+
+    init {
+        insertMembers()
+    }
+
+    private fun insertMembers() {
+        viewModelScope.launch {
+            try {
+                memberRepository.getMembers()
+
+            } catch (e: Exception) {
+                Log.d("***", e.toString())
+            }
+        }
+    }
     //val p = Parliament(ParliamentMembersData.members)
 
     /*fun addMember(hetekaId: Int, seatNumber: Int, likes: Int, lastname: String, firstname: String, party: String, minister: Boolean, pictureUrl: String) {
