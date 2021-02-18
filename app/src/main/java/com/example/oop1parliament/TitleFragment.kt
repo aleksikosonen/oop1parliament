@@ -46,7 +46,7 @@ class TitleFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(AddMemberViewModel::class.java)
 
         binding.playButton.setOnClickListener { view : View ->
-            Log.d("DDD", "Launched")
+            Log.d("DDDD", "Launched")
             view.findNavController().navigate(R.id.action_titleFragment_to_partyFragment)
         }
 
@@ -79,10 +79,6 @@ class AddMemberViewModel(application: Application) : AndroidViewModel(applicatio
     private val memberRepository = MemberRepository(ParliamentMemberDB.getInstance(application.applicationContext))
     val memberList = memberRepository.members
 
-    private val _members = MutableLiveData<List<ParliamentMember>>()
-    val members : LiveData<List<ParliamentMember>>
-        get() = _members
-
     init {
         insertMembers()
     }
@@ -97,6 +93,7 @@ class AddMemberViewModel(application: Application) : AndroidViewModel(applicatio
             }
         }
     }
+
     //val p = Parliament(ParliamentMembersData.members)
 
     /*fun addMember(hetekaId: Int, seatNumber: Int, likes: Int, lastname: String, firstname: String, party: String, minister: Boolean, pictureUrl: String) {

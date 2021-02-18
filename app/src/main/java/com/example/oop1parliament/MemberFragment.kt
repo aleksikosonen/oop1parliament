@@ -12,6 +12,7 @@ import androidx.lifecycle.observe
 import com.example.oop1parliament.databinding.FragmentMemberBinding
 import androidx.lifecycle.*
 import androidx.navigation.findNavController
+import kotlinx.coroutines.handleCoroutineException
 import kotlin.random.Random
 
 
@@ -46,18 +47,49 @@ class MemberFragment : Fragment() {
         var memberIndex = 0
         val selectedHeteka = arguments?.getInt("heteka") ?: 1297
 
-        val binding: FragmentMemberBinding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_member,container,false)
+        val binding: FragmentMemberBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_member, container, false)
 
         viewModel = ViewModelProvider(this).get(MemberViewModel::class.java)
         binding.viewModel = viewModel
 
-        //Log.d("FFF", "${viewModel.members.value?.filter { it.party=="vas" }?.map { it.firstname }}")
-        //Log.d("FFF", "${viewModel.memberList}")
 
-        val memberDetail = viewModel.p.members.filter { it.hetekaId==selectedHeteka }.mapNotNull { it }
+        //binding.memberName.text = viewModel.selectMember(selectedHeteka)
 
-        binding.memberName.text = memberDetail[0].firstname + " " + memberDetail[0].lastname
+        //Palauttaa nullin
+        //binding.memberName.text = viewModel.parliamentMembers.value?.find { it.hetekaId==selectedHeteka }?.firstname
+
+        //Toimii
+        /*viewModel.parliamentMembers.observe(viewLifecycleOwner) {
+            binding.memberName.text = it.find { it.hetekaId==selectedHeteka }?.firstname
+        }*/
+
+
+        viewModel.parliamentMembers.observe(viewLifecycleOwner) {
+
+            var selectedMemberFirstName = it.find { it.hetekaId == selectedHeteka }?.firstname
+            var selectedMemberLastName = it.find { it.hetekaId == selectedHeteka }?.lastname
+            var selectedMemberParty = it.find { it.hetekaId == selectedHeteka }?.party
+
+            binding.memberName.text = "$selectedMemberFirstName $selectedMemberLastName"
+
+            when (selectedMemberParty) {
+                "kesk" -> binding.logoView.setImageResource(R.drawable.keskusta_logo_2020)
+                "ps" -> binding.logoView.setImageResource(R.drawable.peruss_logo_rgb)
+                "sd" -> binding.logoView.setImageResource(R.drawable.sdp)
+                "kd" -> binding.logoView.setImageResource(R.drawable.kd)
+                "vas" -> binding.logoView.setImageResource(R.drawable.vas)
+                "kok" -> binding.logoView.setImageResource(R.drawable.kokoomus)
+                "r" -> binding.logoView.setImageResource(R.drawable.rkp)
+                "vihr" -> binding.logoView.setImageResource(R.drawable.vihrea)
+            }
+        }
+
+
+        /*
+
+        val memberDetail = viewModel.parliamentMembers.value?.filter { it.hetekaId == selectedHeteka }?.mapNotNull { it }
+
+        binding.memberName.text = memberDetail!![0].firstname + " " + memberDetail[0].lastname
 
         when (memberDetail[0].party) {
             "kesk" -> binding.logoView.setImageResource(R.drawable.keskusta_logo_2020)
@@ -70,12 +102,14 @@ class MemberFragment : Fragment() {
             "vihr" -> binding.logoView.setImageResource(R.drawable.vihrea)
         }
 
+
         viewModel.positiveSum.observe(viewLifecycleOwner, {
             binding.likeCount.text = it.toString()
         })
 
+
         binding.getRandomMember.setOnClickListener {
-            memberIndex = Random.nextInt(viewModel.p.members.size)
+            memberIndex = Random.nextInt(viewModel.parliamentMembers.value.size)
             binding.memberName.text = viewModel.p.members[memberIndex].firstname + " " + viewModel.p.members[memberIndex].lastname
             when (viewModel.p.members[memberIndex].party) {
                  "kesk" -> binding.logoView.setImageResource(R.drawable.keskusta_logo_2020)
@@ -100,7 +134,7 @@ class MemberFragment : Fragment() {
 
         binding.toDetails.setOnClickListener{view : View ->
             view.findNavController().navigate(R.id.action_memberFragment_to_detailsFragment)
-        }
+        }*/
 
         setHasOptionsMenu(true)
         return binding.root

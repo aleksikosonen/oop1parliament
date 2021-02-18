@@ -68,8 +68,6 @@ class PartyFragment : Fragment() {
         binding.memberView.adapter = adapter
         binding.memberView.layoutManager = LinearLayoutManager(context)
 
-        //viewModel.likeCounter.inc(adapter.selectedHeteka)
-
         ArrayAdapter.createFromResource(context,
                 R.array.parties_array,
                 R.layout.support_simple_spinner_dropdown_item
@@ -80,7 +78,6 @@ class PartyFragment : Fragment() {
 
         viewModel.parliamentMembers.observe(viewLifecycleOwner, {
             adapter.submitList(viewModel.parliamentMembers.value)
-            Log.d("DFF", "${viewModel.parliamentMembers.value?.filter { it.party=="vas" }?.map { it.firstname }}")
         })
 
 
