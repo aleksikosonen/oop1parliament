@@ -146,7 +146,7 @@ class SpinnerActivity : Activity(), AdapterView.OnItemSelectedListener {
 
 class MemberListAdapter(private val context: Context): ListAdapter<ParliamentMember, MemberViewHolder>(MemberDiffCallback()) {
 
-    var selectedHeteka : Int = 5
+    var selectedHeteka : Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberViewHolder {
         val itemView = LayoutInflater.from(context).inflate(R.layout.member_item_view, parent, false)

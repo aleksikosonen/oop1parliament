@@ -13,32 +13,27 @@ class MemberViewModel(application: Application) : AndroidViewModel(application) 
     val parliamentMembers: LiveData<List<ParliamentMember>>
         get() = memberRepository.members
 
-    /*
-    fun selectMember(heteka: Int) : String? {
-        return parliamentMembers.value?.find {it.hetekaId == heteka}?.firstname
-    }*/
-
-    /*
-    init {
-        getMembers()
+    fun getMemberName(heteka: Int) : String {
+        val firstName = parliamentMembers.value?.find { it.hetekaId == heteka }?.firstname
+        val lastName = parliamentMembers.value?.find { it.hetekaId == heteka }?.lastname
+        return "$firstName $lastName"
     }
-    fun getMembers() {
-        viewModelScope.launch {
-            try {
-                memberRepository.getMembers()
 
-            } catch (e: Exception) {
-                Log.d("***", e.toString())
-            }
+    fun getMemberParty(heteka: Int) : String {
+        val party = parliamentMembers.value?.find { it.hetekaId == heteka }?.party
+        return "$party"
+    }
+
+    val abc = MemberVoteDB.getInstance(application.applicationContext)
+    val membersToVote: LiveData<List<MemberVote>>
+        get() = abc.memberVoteDao.getAll()
+
+    fun voteMember(heteka: Int, likeCount: Int) {
+        val context = getApplication<Application>().applicationContext
+        viewModelScope.launch {
+            MemberVoteDB.getInstance(context)
+                    .memberVoteDao
+                    .insertOrUpdate(MemberVote(heteka, likeCount))
         }
     }
-*/
-
-    //val p = Parliament(ParliamentMembersData.members)
-
-    val likeCounter = memberLikeCounter()
-
-    val positiveSum: LiveData<Int> = Transformations.distinctUntilChanged(
-            Transformations.map(likeCounter.likesList) { it.sum() }
-    )
 }

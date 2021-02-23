@@ -93,15 +93,4 @@ class AddMemberViewModel(application: Application) : AndroidViewModel(applicatio
             }
         }
     }
-
-    //val p = Parliament(ParliamentMembersData.members)
-
-    /*fun addMember(hetekaId: Int, seatNumber: Int, likes: Int, lastname: String, firstname: String, party: String, minister: Boolean, pictureUrl: String) {
-        val context = getApplication<Application>().applicationContext
-        viewModelScope.launch {
-            ParliamentMemberDB.getInstance(context)
-                .parliamentMemberDao
-                .insertOrUpdate(ParliamentMember(hetekaId, seatNumber, likes, lastname, firstname, party, minister, pictureUrl))
-        }
-    }*/
 }

@@ -13,7 +13,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
 @Entity
-class ParliamentMember(
+data class ParliamentMember(
     @PrimaryKey
     val hetekaId: Int,
     val seatNumber: Int = 0,
@@ -21,25 +21,17 @@ class ParliamentMember(
     val firstname: String,
     val party: String,
     val minister: Boolean,
-    val pictureUrl: String = ""
+    val pictureUrl: String = "",
 )
 
-fun List<ParliamentMember>.asDomainModel(): List<ParliamentMember> {
-    return map {
-        ParliamentMember(
-                hetekaId = it.hetekaId,
-                seatNumber = it.seatNumber,
-                lastname = it.lastname,
-                firstname = it.firstname,
-                party = it.party,
-                minister = it.minister,
-                pictureUrl = it.pictureUrl
-        )
-    }
-}
+@Entity
+data class MemberVote(
+        @PrimaryKey
+        val hetekaId: Int,
+        val likeCount: Int = 0
+)
 
 private const val BASE_URL = "https://avoindata.eduskunta.fi/" // add the base url
-//private const val BASE_URL = "https://users.metropolia.fi/" // add the base url
 private val moshi = Moshi.Builder() // create an instance of Moshi
     .add(KotlinJsonAdapterFactory())
     .build()
@@ -48,8 +40,6 @@ private val retrofit = Retrofit.Builder() // create an instance of Retrofit and 
     .baseUrl(BASE_URL)
     .build()
 interface MemberApiService {
-    //@GET("covid19/casedistribution/json/") //add here the end point
-    //@GET("~alekskos/eduskunta_projekti/edus.json/") //add here the end point
     @GET("api/v1/seating/") //add here the end point
     suspend fun getMembers(): List<ParliamentMember>
 }
@@ -59,21 +49,8 @@ object MemberApi {
         retrofit.create(MemberApiService::class.java) }
 }
 
-class memberLikeCounter(initValue: Int = 0) {
-    val likesList: MutableLiveData<List<Int>> = MutableLiveData(listOf())
-    val memberLikes: MutableLiveData<List<Int>> = MutableLiveData(listOf())
 
-    fun inc(amount: Int) {
-        addOp(amount)
-    }
-    fun dec(amount: Int) {
-        addOp(-amount)
-    }
-    private fun addOp(amount: Int) {
-        likesList.value = likesList.value?.plus(listOf(amount))
-    }
-}
-
+/*
 class Parliament(val members: List<ParliamentMember>) {
 
     // return all parties represented in parliament sorted by their name
@@ -1902,4 +1879,8 @@ object ParliamentMembersData {
             pictureUrl = "attachment/member/pictures/Ostman-Peter-web-v8290-1141.JPG"
         )
     )
+
+
 }
+
+ */

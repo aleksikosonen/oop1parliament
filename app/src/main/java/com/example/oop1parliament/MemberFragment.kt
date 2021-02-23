@@ -12,6 +12,7 @@ import androidx.lifecycle.observe
 import com.example.oop1parliament.databinding.FragmentMemberBinding
 import androidx.lifecycle.*
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.handleCoroutineException
 import kotlin.random.Random
 
@@ -29,6 +30,7 @@ private const val ARG_PARAM2 = "param2"
 class MemberFragment : Fragment() {
     //private lateinit var viewModel: MainViewModel
     private lateinit var viewModel: MemberViewModel
+    private lateinit var binding: FragmentMemberBinding
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -44,33 +46,18 @@ class MemberFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        var memberIndex = 0
-        val selectedHeteka = arguments?.getInt("heteka") ?: 1297
-
-        val binding: FragmentMemberBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_member, container, false)
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_member, container, false)
         viewModel = ViewModelProvider(this).get(MemberViewModel::class.java)
         binding.viewModel = viewModel
 
-
-        //binding.memberName.text = viewModel.selectMember(selectedHeteka)
-
-        //Palauttaa nullin
-        //binding.memberName.text = viewModel.parliamentMembers.value?.find { it.hetekaId==selectedHeteka }?.firstname
-
-        //Toimii
-        /*viewModel.parliamentMembers.observe(viewLifecycleOwner) {
-            binding.memberName.text = it.find { it.hetekaId==selectedHeteka }?.firstname
-        }*/
-
+        var selectedHeteka = arguments?.getInt("heteka") ?: 1297
 
         viewModel.parliamentMembers.observe(viewLifecycleOwner) {
 
-            var selectedMemberFirstName = it.find { it.hetekaId == selectedHeteka }?.firstname
-            var selectedMemberLastName = it.find { it.hetekaId == selectedHeteka }?.lastname
-            var selectedMemberParty = it.find { it.hetekaId == selectedHeteka }?.party
+            var memberName = viewModel.getMemberName(selectedHeteka)
+            var selectedMemberParty = viewModel.getMemberParty(selectedHeteka)
 
-            binding.memberName.text = "$selectedMemberFirstName $selectedMemberLastName"
+            binding.memberName.text = "$memberName"
 
             when (selectedMemberParty) {
                 "kesk" -> binding.logoView.setImageResource(R.drawable.keskusta_logo_2020)
@@ -82,59 +69,59 @@ class MemberFragment : Fragment() {
                 "r" -> binding.logoView.setImageResource(R.drawable.rkp)
                 "vihr" -> binding.logoView.setImageResource(R.drawable.vihrea)
             }
+
+            Glide.with(this).load("https://avoindata.eduskunta.fi/" + it.find{it.hetekaId==selectedHeteka }?.pictureUrl).into(binding.lennu)
+
         }
 
-
-        /*
-
-        val memberDetail = viewModel.parliamentMembers.value?.filter { it.hetekaId == selectedHeteka }?.mapNotNull { it }
-
-        binding.memberName.text = memberDetail!![0].firstname + " " + memberDetail[0].lastname
-
-        when (memberDetail[0].party) {
-            "kesk" -> binding.logoView.setImageResource(R.drawable.keskusta_logo_2020)
-            "ps" -> binding.logoView.setImageResource(R.drawable.peruss_logo_rgb)
-            "sd" -> binding.logoView.setImageResource(R.drawable.sdp)
-            "kd" -> binding.logoView.setImageResource(R.drawable.kd)
-            "vas" -> binding.logoView.setImageResource(R.drawable.vas)
-            "kok" -> binding.logoView.setImageResource(R.drawable.kokoomus)
-            "r" -> binding.logoView.setImageResource(R.drawable.rkp)
-            "vihr" -> binding.logoView.setImageResource(R.drawable.vihrea)
+        viewModel.membersToVote.observe(viewLifecycleOwner) {
+            binding.likeCount.text = it.find { it.hetekaId == selectedHeteka }?.likeCount.toString()
+            if (binding.likeCount.text=="null") binding.likeCount.text = "0"
         }
-
-
-        viewModel.positiveSum.observe(viewLifecycleOwner, {
-            binding.likeCount.text = it.toString()
-        })
-
-
-        binding.getRandomMember.setOnClickListener {
-            memberIndex = Random.nextInt(viewModel.parliamentMembers.value.size)
-            binding.memberName.text = viewModel.p.members[memberIndex].firstname + " " + viewModel.p.members[memberIndex].lastname
-            when (viewModel.p.members[memberIndex].party) {
-                 "kesk" -> binding.logoView.setImageResource(R.drawable.keskusta_logo_2020)
-                 "ps" -> binding.logoView.setImageResource(R.drawable.peruss_logo_rgb)
-                 "sd" -> binding.logoView.setImageResource(R.drawable.sdp)
-                 "kd" -> binding.logoView.setImageResource(R.drawable.kd)
-                 "vas" -> binding.logoView.setImageResource(R.drawable.vas)
-                 "kok" -> binding.logoView.setImageResource(R.drawable.kokoomus)
-                 "r" -> binding.logoView.setImageResource(R.drawable.rkp)
-                 "vihr" -> binding.logoView.setImageResource(R.drawable.vihrea)
-            }
-        }
-
 
         binding.likeButton.setOnClickListener {
-            viewModel.likeCounter.inc(1)
+            val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
+            viewModel.voteMember(selectedHeteka, likeAmount + 1)
         }
 
         binding.dislikeButton.setOnClickListener{
-            viewModel.likeCounter.inc(-1)
+            val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
+            viewModel.voteMember(selectedHeteka, likeAmount - 1)
         }
 
         binding.toDetails.setOnClickListener{view : View ->
             view.findNavController().navigate(R.id.action_memberFragment_to_detailsFragment)
-        }*/
+        }
+
+        binding.getRandomMember.setOnClickListener {
+            val randomIndex = viewModel.parliamentMembers.value?.size ?: 0
+            val random = Random.nextInt(randomIndex)
+            selectedHeteka = viewModel.parliamentMembers.value?.get(random)?.hetekaId ?: 1297
+            Log.d("heteka", "$selectedHeteka")
+
+            viewModel.parliamentMembers.observe(viewLifecycleOwner) {
+
+                var selectedMemberFirstName = it.find { it.hetekaId == selectedHeteka }?.firstname
+                var selectedMemberLastName = it.find { it.hetekaId == selectedHeteka }?.lastname
+                var selectedMemberParty = it.find { it.hetekaId == selectedHeteka }?.party
+
+                binding.memberName.text = "$selectedMemberFirstName $selectedMemberLastName"
+
+                when (selectedMemberParty) {
+                    "kesk" -> binding.logoView.setImageResource(R.drawable.keskusta_logo_2020)
+                    "ps" -> binding.logoView.setImageResource(R.drawable.peruss_logo_rgb)
+                    "sd" -> binding.logoView.setImageResource(R.drawable.sdp)
+                    "kd" -> binding.logoView.setImageResource(R.drawable.kd)
+                    "vas" -> binding.logoView.setImageResource(R.drawable.vas)
+                    "kok" -> binding.logoView.setImageResource(R.drawable.kokoomus)
+                    "r" -> binding.logoView.setImageResource(R.drawable.rkp)
+                    "vihr" -> binding.logoView.setImageResource(R.drawable.vihrea)
+                }
+
+                Glide.with(this).load("https://avoindata.eduskunta.fi/" + it.find{it.hetekaId==selectedHeteka }?.pictureUrl).into(binding.lennu)
+
+            }
+        }
 
         setHasOptionsMenu(true)
         return binding.root

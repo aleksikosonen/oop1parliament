@@ -8,10 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class MemberRepository(private val database: ParliamentMemberDB) {
-
-    val members: LiveData<List<ParliamentMember>> = Transformations.map(database.parliamentMemberDao.getAll()) {
-        it.asDomainModel()
-    }
+    val members: LiveData<List<ParliamentMember>> = database.parliamentMemberDao.getAll()
 
     suspend fun getMembers() {
         withContext(Dispatchers.IO) {
