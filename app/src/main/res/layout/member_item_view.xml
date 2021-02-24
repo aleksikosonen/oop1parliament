@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/membername"
-        android:layout_width="266dp"
+        android:layout_width="250dp"
         android:layout_height="match_parent"
         android:textSize="24sp" />
 
@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/thumbnail"
-        android:layout_width="46dp"
-        android:layout_height="66dp"
+        android:layout_width="69dp"
+        android:layout_height="56dp"
         android:contentDescription="TODO"
         android:scaleType="fitStart"
         app:srcCompat="@drawable/keskusta_logo_2020" />
