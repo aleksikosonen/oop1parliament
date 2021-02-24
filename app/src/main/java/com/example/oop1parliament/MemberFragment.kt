@@ -52,27 +52,7 @@ class MemberFragment : Fragment() {
 
         var selectedHeteka = arguments?.getInt("heteka") ?: 1297
 
-        viewModel.parliamentMembers.observe(viewLifecycleOwner) {
-
-            /*Glide.with(this).load("https://avoindata.eduskunta.fi/" + it.find{it.hetekaId==selectedHeteka }?.pictureUrl).into(binding.lennu)
-
-            binding.memberName.text = viewModel.getMemberName(selectedHeteka)
-
-            when (viewModel.getMemberParty(selectedHeteka)) {
-                "kesk" -> binding.logoView.setImageResource(R.drawable.keskusta_logo_2020)
-                "ps" -> binding.logoView.setImageResource(R.drawable.peruss_logo_rgb)
-                "sd" -> binding.logoView.setImageResource(R.drawable.sdp)
-                "kd" -> binding.logoView.setImageResource(R.drawable.kd)
-                "vas" -> binding.logoView.setImageResource(R.drawable.vas)
-                "kok" -> binding.logoView.setImageResource(R.drawable.kokoomus)
-                "r" -> binding.logoView.setImageResource(R.drawable.rkp)
-                "vihr" -> binding.logoView.setImageResource(R.drawable.vihrea)
-                "liik" -> binding.logoView.setImageResource(R.drawable.liik)
-            }*/
-
-            getMemberDetails(selectedHeteka)
-
-        }
+        viewModel.parliamentMembers.observe(viewLifecycleOwner) { getMemberDetails(selectedHeteka) }
 
         viewModel.membersToVote.observe(viewLifecycleOwner) {
             binding.likeCount.text = it.find { it.hetekaId == selectedHeteka }?.likeCount.toString()
