@@ -54,12 +54,11 @@ class MemberFragment : Fragment() {
 
         viewModel.parliamentMembers.observe(viewLifecycleOwner) {
 
-            var memberName = viewModel.getMemberName(selectedHeteka)
-            var selectedMemberParty = viewModel.getMemberParty(selectedHeteka)
+            /*Glide.with(this).load("https://avoindata.eduskunta.fi/" + it.find{it.hetekaId==selectedHeteka }?.pictureUrl).into(binding.lennu)
 
-            binding.memberName.text = "$memberName"
+            binding.memberName.text = viewModel.getMemberName(selectedHeteka)
 
-            when (selectedMemberParty) {
+            when (viewModel.getMemberParty(selectedHeteka)) {
                 "kesk" -> binding.logoView.setImageResource(R.drawable.keskusta_logo_2020)
                 "ps" -> binding.logoView.setImageResource(R.drawable.peruss_logo_rgb)
                 "sd" -> binding.logoView.setImageResource(R.drawable.sdp)
@@ -68,9 +67,10 @@ class MemberFragment : Fragment() {
                 "kok" -> binding.logoView.setImageResource(R.drawable.kokoomus)
                 "r" -> binding.logoView.setImageResource(R.drawable.rkp)
                 "vihr" -> binding.logoView.setImageResource(R.drawable.vihrea)
-            }
+                "liik" -> binding.logoView.setImageResource(R.drawable.liik)
+            }*/
 
-            Glide.with(this).load("https://avoindata.eduskunta.fi/" + it.find{it.hetekaId==selectedHeteka }?.pictureUrl).into(binding.lennu)
+            getMemberDetails(selectedHeteka)
 
         }
 
@@ -97,38 +97,30 @@ class MemberFragment : Fragment() {
             val randomIndex = viewModel.parliamentMembers.value?.size ?: 0
             val random = Random.nextInt(randomIndex)
             selectedHeteka = viewModel.parliamentMembers.value?.get(random)?.hetekaId ?: 1297
-            Log.d("heteka", "$selectedHeteka")
-
-            viewModel.parliamentMembers.observe(viewLifecycleOwner) {
-
-                var selectedMemberFirstName = it.find { it.hetekaId == selectedHeteka }?.firstname
-                var selectedMemberLastName = it.find { it.hetekaId == selectedHeteka }?.lastname
-                var selectedMemberParty = it.find { it.hetekaId == selectedHeteka }?.party
-
-                binding.memberName.text = "$selectedMemberFirstName $selectedMemberLastName"
-
-                when (selectedMemberParty) {
-                    "kesk" -> binding.logoView.setImageResource(R.drawable.keskusta_logo_2020)
-                    "ps" -> binding.logoView.setImageResource(R.drawable.peruss_logo_rgb)
-                    "sd" -> binding.logoView.setImageResource(R.drawable.sdp)
-                    "kd" -> binding.logoView.setImageResource(R.drawable.kd)
-                    "vas" -> binding.logoView.setImageResource(R.drawable.vas)
-                    "kok" -> binding.logoView.setImageResource(R.drawable.kokoomus)
-                    "r" -> binding.logoView.setImageResource(R.drawable.rkp)
-                    "vihr" -> binding.logoView.setImageResource(R.drawable.vihrea)
-                }
-
-                Glide.with(this).load("https://avoindata.eduskunta.fi/" + it.find{it.hetekaId==selectedHeteka }?.pictureUrl).into(binding.lennu)
-
-            }
+            getMemberDetails(selectedHeteka)
         }
 
         setHasOptionsMenu(true)
         return binding.root
     }
 
-    private fun getPartyLogo(list: List<ParliamentMember>) {
-                //TODO
+    private fun getMemberDetails(selectedHeteka: Int) {
+        Glide.with(this).load("https://avoindata.eduskunta.fi/" + viewModel.parliamentMembers.value?.find{it.hetekaId==selectedHeteka }?.pictureUrl).into(binding.lennu)
+
+        binding.memberName.text = viewModel.getMemberName(selectedHeteka)
+
+        when (viewModel.getMemberParty(selectedHeteka)) {
+            "kesk" -> binding.logoView.setImageResource(R.drawable.keskusta_logo_2020)
+            "ps" -> binding.logoView.setImageResource(R.drawable.peruss_logo_rgb)
+            "sd" -> binding.logoView.setImageResource(R.drawable.sdp)
+            "kd" -> binding.logoView.setImageResource(R.drawable.kd)
+            "vas" -> binding.logoView.setImageResource(R.drawable.vas)
+            "kok" -> binding.logoView.setImageResource(R.drawable.kokoomus)
+            "r" -> binding.logoView.setImageResource(R.drawable.rkp)
+            "vihr" -> binding.logoView.setImageResource(R.drawable.vihrea)
+            "liik" -> binding.logoView.setImageResource(R.drawable.liik)
+        }
+
     }
 
     companion object {

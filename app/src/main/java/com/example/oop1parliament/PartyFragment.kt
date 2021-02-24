@@ -11,11 +11,13 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -23,6 +25,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.oop1parliament.databinding.FragmentPartyBinding
 import com.example.oop1parliament.databinding.FragmentPartyBindingImpl
 
@@ -97,6 +100,7 @@ class PartyFragment : Fragment() {
                     6 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="kd" })
                     7 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="kok" })
                     8 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="r" })
+                    9 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="liik" })
                 }
             }
         }
@@ -156,6 +160,9 @@ class MemberListAdapter(private val context: Context): ListAdapter<ParliamentMem
     override fun onBindViewHolder(holder: MemberViewHolder, position: Int) {
         holder.itemView.findViewById<TextView>(R.id.membername).text = getItem(position).firstname + " " +  getItem(position).lastname
         holder.itemView.findViewById<TextView>(R.id.memberparty).text = getItem(position).party
+        holder.itemView.findViewById<ImageView>(R.id.thumbnail).setImageResource(R.drawable.vihrea)
+        //holder.itemView.findViewById<ImageView>(R.id.thumbnail).(Glide.with(this).load("https://avoindata.eduskunta.fi/" + getItem(position).pictureUrl))
+        Glide.with(context).load("https://avoindata.eduskunta.fi/" + getItem(position).pictureUrl).into(holder.itemView.findViewById<ImageView>(R.id.thumbnail))
         holder.itemView.setOnClickListener{
             val selectedMember = getItem(position).firstname
             selectedHeteka = getItem(position).hetekaId
