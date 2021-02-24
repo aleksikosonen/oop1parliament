@@ -47,7 +47,7 @@ class TitleFragment : Fragment() {
 
         binding.playButton.setOnClickListener { view : View ->
             Log.d("DDDD", "Launched")
-            view.findNavController().navigate(R.id.action_titleFragment_to_partyFragment)
+            view.findNavController().navigate(R.id.action_titleFragment_to_partySelect)
         }
 
         setHasOptionsMenu(true)

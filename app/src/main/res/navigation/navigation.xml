@@ -11,9 +11,20 @@
         android:label="fragment_title"
         tools:layout="@layout/fragment_title" >
         <action
-            android:id="@+id/action_titleFragment_to_partyFragment"
+            android:id="@+id/action_titleFragment_to_partySelect"
+            app:destination="@id/partySelect" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/partySelect"
+        android:name="com.example.oop1parliament.PartySelect"
+        android:label="PartySelect"
+        tools:layout="@layout/fragment_party_select">
+        <action
+            android:id="@+id/action_partySelect_to_partyFragment"
             app:destination="@id/partyFragment" />
     </fragment>
+
 
     <fragment
         android:id="@+id/memberFragment"
