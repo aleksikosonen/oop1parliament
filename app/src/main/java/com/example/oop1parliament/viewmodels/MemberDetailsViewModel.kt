@@ -1,13 +1,9 @@
 package com.example.oop1parliament
 
 import android.app.Application
-import android.util.Log
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.*
-import com.bumptech.glide.Glide
-import kotlinx.coroutines.handleCoroutineException
+import com.example.oop1parliament.repository.MemberRepository
 import kotlinx.coroutines.launch
-import kotlin.math.absoluteValue
 
 class MemberDetailsViewModel(application: Application, heteka: Int) : AndroidViewModel(application) {
 

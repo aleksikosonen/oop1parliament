@@ -29,7 +29,7 @@ data class MemberVote(
         @PrimaryKey
         val hetekaId: Int,
         val likeCount: Int = 0,
-        val comments: String = ""
+        val comments: String
 )
 
 private const val BASE_URL = "https://avoindata.eduskunta.fi/" // add the base url

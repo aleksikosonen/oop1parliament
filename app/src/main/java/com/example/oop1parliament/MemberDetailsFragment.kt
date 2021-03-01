@@ -1,6 +1,5 @@
 package com.example.oop1parliament
 
-import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,8 +14,6 @@ import androidx.lifecycle.*
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.example.oop1parliament.databinding.FragmentMemberDetailsBinding
-import kotlinx.coroutines.handleCoroutineException
-import kotlin.random.Random
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class MemberDetailsFragment : Fragment() {
     //private lateinit var viewModel: MainViewModel
-    private lateinit var viewModel: MemberDetailsViewModel
+    private lateinit var memberDetailsViewModel: MemberDetailsViewModel
     private lateinit var binding: FragmentMemberDetailsBinding
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -54,30 +51,35 @@ class MemberDetailsFragment : Fragment() {
 
         val application = requireNotNull(activity).application
         val viewModelFactory = MemberViewModelFactory(application, selectedHeteka)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MemberDetailsViewModel::class.java)
+        memberDetailsViewModel = ViewModelProvider(this, viewModelFactory).get(MemberDetailsViewModel::class.java)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_member_details, container, false)
 
-        //binding.viewModel = viewModel
+        memberDetailsViewModel.parliamentMembers.observe(viewLifecycleOwner) { getMemberDetails(selectedHeteka) }
 
-        viewModel.parliamentMembers.observe(viewLifecycleOwner) { getMemberDetails(selectedHeteka) }
-
-        viewModel.membersToVote.observe(viewLifecycleOwner) {
+        memberDetailsViewModel.membersToVote.observe(viewLifecycleOwner) {
             binding.likeCount.text = it.find { it.hetekaId == selectedHeteka }?.likeCount.toString()
             if (binding.likeCount.text=="null") binding.likeCount.text = "0"
         }
 
         binding.likeButton.setOnClickListener {
-            val addedComment = binding.addComment.text.toString()
+            val addedComment = ""
             val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
-            viewModel.voteMember(selectedHeteka, likeAmount + 1, addedComment)
+            memberDetailsViewModel.voteMember(selectedHeteka, likeAmount + 1, addedComment)
+            //Toast.makeText(requireContext().applicationContext, "Lisättiin kommentti ${addedComment}", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.comment.setOnClickListener {
+            val addedComment = binding.addComment.text.toString() + "\n"
+            val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
+            memberDetailsViewModel.voteMember(selectedHeteka, likeAmount + 0, addedComment)
             Toast.makeText(requireContext().applicationContext, "Lisättiin kommentti ${addedComment}", Toast.LENGTH_SHORT).show()
         }
 
         binding.dislikeButton.setOnClickListener{
             val addedComment = binding.addComment.text.toString()
             val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
-            viewModel.voteMember(selectedHeteka, likeAmount - 1, addedComment)
+            memberDetailsViewModel.voteMember(selectedHeteka, likeAmount - 1, addedComment)
         }
 
         binding.toDetails.setOnClickListener{view : View ->
@@ -85,35 +87,22 @@ class MemberDetailsFragment : Fragment() {
         }
 
         binding.toDetails.setOnClickListener{view : View ->
-            val addedComment = binding.addComment.text.toString()
-            Log.d("ääh", addedComment)
             val bundle = bundleOf("Selected heteka" to selectedHeteka)
-            //viewModel.commentMember(0, addedComment)
-            //binding.likeCount.text = viewModel.membersToVote.value?.find { it.hetekaId==selectedHeteka }?.comment
             view.findNavController().navigate(R.id.action_memberDetailsFragment_to_commentsFragment, bundle)
         }
-
-/*
-        binding.getRandomMember.setOnClickListener {
-            val randomIndex = viewModel.parliamentMembers.value?.size ?: 0
-            val random = Random.nextInt(randomIndex)
-            selectedHeteka = viewModel.parliamentMembers.value?.get(random)?.hetekaId ?: 1297
-            Log.d("Hetekabug", "${viewModel.selectedHeteka}")
-            viewModel.selectedHeteka = selectedHeteka
-            Log.d("Hetekabug", "${viewModel.selectedHeteka}")
-            getMemberDetails(selectedHeteka)
-        }*/
 
         setHasOptionsMenu(true)
         return binding.root
     }
 
     private fun getMemberDetails(selectedHeteka: Int) {
-        Glide.with(this).load(BASE_URL + viewModel.getUrl()).into(binding.lennu)
+        Glide.with(this)
+                .load(BASE_URL + memberDetailsViewModel.getUrl())
+                        .into(binding.lennu)
 
-        binding.memberName.text = viewModel.getMemberName()
+        binding.memberName.text = memberDetailsViewModel.getMemberName()
 
-        when (viewModel.getParty()) {
+        when (memberDetailsViewModel.getParty()) {
             "kesk" -> binding.logoView.setImageResource(R.drawable.keskusta_logo_2020)
             "ps" -> binding.logoView.setImageResource(R.drawable.peruss_logo_rgb)
             "sd" -> binding.logoView.setImageResource(R.drawable.sdp)
@@ -124,22 +113,9 @@ class MemberDetailsFragment : Fragment() {
             "vihr" -> binding.logoView.setImageResource(R.drawable.vihrea)
             "liik" -> binding.logoView.setImageResource(R.drawable.liik)
         }
-
-        //Glide.with(this).load("https://avoindata.eduskunta.fi/" + viewModel.parliamentMembers.value?.find{it.hetekaId==selectedHeteka }?.pictureUrl).into(binding.lennu)
-        //binding.memberName.text = viewModel.name.toString()
-        //Log.d("VMF", "${viewModel.name}")
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MemberFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MemberDetailsFragment().apply {
@@ -150,7 +126,3 @@ class MemberDetailsFragment : Fragment() {
             }
     }
 }
-/*
-class MainViewModel(application: Application) : AndroidViewModel(application) {
-    val members: LiveData<List<ParliamentMember>> = ParliamentMemberDB.getInstance(application.applicationContext).parliamentMemberDao.getAll()
-}*/

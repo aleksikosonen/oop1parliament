@@ -46,7 +46,7 @@
         android:id="@+id/partyMembersFragment"
         android:name="com.example.oop1parliament.PartyMembersFragment"
         android:label="fragment_party"
-        tools:layout="@layout/fragment_party" >
+        tools:layout="@layout/fragment_party_members" >
         <action
             android:id="@+id/action_partyMembersFragment_to_memberDetailsFragment"
             app:destination="@id/memberDetailsFragment" />

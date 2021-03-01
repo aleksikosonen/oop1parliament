@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.oop1parliament.databinding.FragmentPartyBinding
+import com.example.oop1parliament.databinding.FragmentPartyMembersBinding
 import com.example.oop1parliament.viewmodels.PartyMembersViewModel
 
 
@@ -35,7 +35,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class PartyMembersFragment : Fragment() {
-    lateinit var viewModel : PartyMembersViewModel
+    lateinit var binding: FragmentPartyMembersBinding
+    lateinit var partyMembersViewModel : PartyMembersViewModel
     private lateinit var adapter: MemberListAdapter
 
     // TODO: Rename and change types of parameters
@@ -53,14 +54,12 @@ class PartyMembersFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        val binding: FragmentPartyBinding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_party, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_party_members, container, false)
 
-        viewModel = ViewModelProvider(this).get(PartyMembersViewModel::class.java)
+        partyMembersViewModel = ViewModelProvider(this).get(PartyMembersViewModel::class.java)
         //binding.viewModel = viewModel
 
-        var selectedParty = arguments?.getString("party") ?: "vihr"
-        Log.d("Partyselect", selectedParty)
+        var selectedParty = arguments?.getString("party") ?: "all"
 
         val context = requireContext().applicationContext
 
@@ -76,31 +75,51 @@ class PartyMembersFragment : Fragment() {
             binding.partySpinner.adapter = adapter
         }
 
-        viewModel.parliamentMembers.observe(viewLifecycleOwner, {
-            adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party==selectedParty })
+        partyMembersViewModel.parliamentMembers.observe(viewLifecycleOwner, {
+            if (selectedParty == "all" ) adapter.submitList(partyMembersViewModel.parliamentMembers.value)
+            else adapter.submitList(partyMembersViewModel.parliamentMembers.value?.filter { it.party==selectedParty })
         })
 
+        fun updateParty(party: String): String {
+            selectedParty = party
+            return selectedParty
+        }
+
+        when (selectedParty) {
+            "kesk" -> binding.partyLogo.setImageResource(R.drawable.keskusta_logo_2020)
+            "ps" -> binding.partyLogo.setImageResource(R.drawable.peruss_logo_rgb)
+            "sd" -> binding.partyLogo.setImageResource(R.drawable.sdp)
+            "kd" -> binding.partyLogo.setImageResource(R.drawable.kd)
+            "vas" -> binding.partyLogo.setImageResource(R.drawable.vas)
+            "kok" -> binding.partyLogo.setImageResource(R.drawable.kokoomus)
+            "r" -> binding.partyLogo.setImageResource(R.drawable.rkp)
+            "vihr" -> binding.partyLogo.setImageResource(R.drawable.vihrea)
+            "liik" -> binding.partyLogo.setImageResource(R.drawable.liik)
+            "all" -> binding.partyLogo.setImageResource(R.drawable.eduskunta)
+        }
 
 
         binding.partySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party == selectedParty })
+                //adapter.submitList(partyMembersViewModel.parliamentMembers.value?.filter { it.party == selectedParty })
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                //updateParty( when(position) { 1 -> "vihr" else -> "all" })
                 when (position) {
                     //0 -> adapter.submitList(viewModel.parliamentMembers.value)
-                    1 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="vihr" })
-                    2 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="vas" })
-                    3 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="kesk" })
-                    4 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="ps" })
-                    5 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="sd" })
-                    6 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="kd" })
-                    7 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="kok" })
-                    8 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="r" })
-                    9 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="liik" })
-                    10 -> adapter.submitList(viewModel.parliamentMembers.value)
+                    1 -> adapter.submitList(partyMembersViewModel.parliamentMembers.value?.filter { it.party=="vihr" })
+                    2 -> adapter.submitList(partyMembersViewModel.parliamentMembers.value?.filter { it.party=="vas" })
+                    3 -> adapter.submitList(partyMembersViewModel.parliamentMembers.value?.filter { it.party=="kesk" })
+                    4 -> adapter.submitList(partyMembersViewModel.parliamentMembers.value?.filter { it.party=="ps" })
+                    5 -> adapter.submitList(partyMembersViewModel.parliamentMembers.value?.filter { it.party=="sd" })
+                    6 -> adapter.submitList(partyMembersViewModel.parliamentMembers.value?.filter { it.party=="kd" })
+                    7 -> adapter.submitList(partyMembersViewModel.parliamentMembers.value?.filter { it.party=="kok" })
+                    8 -> adapter.submitList(partyMembersViewModel.parliamentMembers.value?.filter { it.party=="r" })
+                    9 -> adapter.submitList(partyMembersViewModel.parliamentMembers.value?.filter { it.party=="liik" })
+                    10 -> adapter.submitList(partyMembersViewModel.parliamentMembers.value)
                 }
+
             }
         }
 
@@ -187,3 +206,5 @@ class MemberDiffCallback: DiffUtil.ItemCallback<ParliamentMember>() {
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     val members: LiveData<List<ParliamentMember>> = ParliamentMemberDB.getInstance(application.applicationContext).parliamentMemberDao.getAll()
 }*/
+
+

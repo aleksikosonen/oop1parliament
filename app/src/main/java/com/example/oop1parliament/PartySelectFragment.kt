@@ -28,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class PartySelect : Fragment() {
     private lateinit var binding: FragmentPartySelectBinding
-    private lateinit var viewModel: PartySelectViewModel
+    private lateinit var partySelectViewModel: PartySelectViewModel
     private lateinit var adapter: PartyListAdapter
 
     private var param1: String? = null
@@ -48,22 +48,18 @@ class PartySelect : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_party_select, container, false)
         binding.moveToParty.setOnClickListener { view : View -> view.findNavController().navigate(R.id.action_partySelect_to_partyMembersFragment) }
 
-        viewModel = ViewModelProvider(this).get(PartySelectViewModel::class.java)
+        partySelectViewModel = ViewModelProvider(this).get(PartySelectViewModel::class.java)
 
         //binding.partyView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.partyView.layoutManager = GridLayoutManager(context, 3)
         adapter = PartyListAdapter(requireContext().applicationContext)
         binding.partyView.adapter = adapter
 
-        viewModel.parliamentParties.observe(viewLifecycleOwner) {
+        partySelectViewModel.parliamentParties.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it)
             }
         }
-
-
-
-
 
         return binding.root
     }

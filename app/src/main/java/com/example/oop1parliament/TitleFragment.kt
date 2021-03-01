@@ -11,6 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
 import androidx.navigation.findNavController
 import com.example.oop1parliament.databinding.FragmentTitleBinding
+import com.example.oop1parliament.repository.MemberRepository
+import com.example.oop1parliament.viewmodels.TitleViewModel
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,7 +26,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class TitleFragment : Fragment() {
-    private lateinit var viewModel: AddMemberViewModel
+    private lateinit var titleViewModel: TitleViewModel
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -40,10 +42,9 @@ class TitleFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val binding: FragmentTitleBinding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_title,container,false)
+        val binding: FragmentTitleBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_title,container,false)
 
-        viewModel = ViewModelProvider(this).get(AddMemberViewModel::class.java)
+        titleViewModel = ViewModelProvider(this).get(TitleViewModel::class.java)
 
         binding.playButton.setOnClickListener { view : View ->
             Log.d("DDDD", "Launched")
@@ -74,10 +75,9 @@ class TitleFragment : Fragment() {
             }
     }
 }
-
+/*
 class AddMemberViewModel(application: Application) : AndroidViewModel(application) {
     private val memberRepository = MemberRepository(ParliamentMemberDB.getInstance(application.applicationContext))
-    val memberList = memberRepository.members
 
     init {
         insertMembers()
@@ -93,4 +93,4 @@ class AddMemberViewModel(application: Application) : AndroidViewModel(applicatio
             }
         }
     }
-}
+}*/

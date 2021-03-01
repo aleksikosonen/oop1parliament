@@ -21,7 +21,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class CommentsFragment : Fragment() {
-    private lateinit var viewModel: CommentsViewModel
+    private lateinit var commentsViewModel: CommentsViewModel
     private lateinit var binding: FragmentCommentsBinding
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -38,11 +38,11 @@ class CommentsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_comments, container, false)
-        viewModel = ViewModelProvider(this).get(CommentsViewModel::class.java)
+        commentsViewModel = ViewModelProvider(this).get(CommentsViewModel::class.java)
 
         var selectedHeteka = arguments?.getInt("Selected heteka") ?: 1297
 
-        viewModel.membersToVote.observe(viewLifecycleOwner) {
+        commentsViewModel.membersToVote.observe(viewLifecycleOwner) {
             binding.detailsName.text = it.find { it.hetekaId==selectedHeteka }?.comments.toString()
         }
 
