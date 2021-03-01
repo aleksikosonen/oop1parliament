@@ -11,10 +11,10 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
-import com.example.oop1parliament.databinding.FragmentMemberBinding
 import androidx.lifecycle.*
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
+import com.example.oop1parliament.databinding.FragmentMemberDetailsBinding
 import kotlinx.coroutines.handleCoroutineException
 import kotlin.random.Random
 
@@ -29,10 +29,10 @@ private const val ARG_PARAM2 = "param2"
  * Use the [MemberFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MemberFragment : Fragment() {
+class MemberDetailsFragment : Fragment() {
     //private lateinit var viewModel: MainViewModel
-    private lateinit var viewModel: MemberViewModel
-    private lateinit var binding: FragmentMemberBinding
+    private lateinit var viewModel: MemberDetailsViewModel
+    private lateinit var binding: FragmentMemberDetailsBinding
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -54,11 +54,11 @@ class MemberFragment : Fragment() {
 
         val application = requireNotNull(activity).application
         val viewModelFactory = MemberViewModelFactory(application, selectedHeteka)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MemberViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MemberDetailsViewModel::class.java)
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_member, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_member_details, container, false)
 
-        binding.viewModel = viewModel
+        //binding.viewModel = viewModel
 
         viewModel.parliamentMembers.observe(viewLifecycleOwner) { getMemberDetails(selectedHeteka) }
 
@@ -81,7 +81,7 @@ class MemberFragment : Fragment() {
         }
 
         binding.toDetails.setOnClickListener{view : View ->
-            view.findNavController().navigate(R.id.action_memberFragment_to_detailsFragment)
+            view.findNavController().navigate(R.id.action_memberDetailsFragment_to_commentsFragment)
         }
 
         binding.toDetails.setOnClickListener{view : View ->
@@ -90,7 +90,7 @@ class MemberFragment : Fragment() {
             val bundle = bundleOf("Selected heteka" to selectedHeteka)
             //viewModel.commentMember(0, addedComment)
             //binding.likeCount.text = viewModel.membersToVote.value?.find { it.hetekaId==selectedHeteka }?.comment
-            view.findNavController().navigate(R.id.action_memberFragment_to_detailsFragment, bundle)
+            view.findNavController().navigate(R.id.action_memberDetailsFragment_to_commentsFragment, bundle)
         }
 
 /*
@@ -142,7 +142,7 @@ class MemberFragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MemberFragment().apply {
+            MemberDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

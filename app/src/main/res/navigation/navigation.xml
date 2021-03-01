@@ -21,33 +21,34 @@
         android:label="PartySelect"
         tools:layout="@layout/fragment_party_select">
         <action
-            android:id="@+id/action_partySelect_to_partyFragment"
-            app:destination="@id/partyFragment" />
+            android:id="@+id/action_partySelect_to_partyMembersFragment"
+            app:destination="@id/partyMembersFragment" />
     </fragment>
 
 
     <fragment
-        android:id="@+id/memberFragment"
-        android:name="com.example.oop1parliament.MemberFragment"
+        android:id="@+id/memberDetailsFragment"
+        android:name="com.example.oop1parliament.MemberDetailsFragment"
         android:label="MemberFragment"
-        tools:layout="@layout/fragment_member">
+        tools:layout="@layout/fragment_member_details">
         <action
-            android:id="@+id/action_memberFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            android:id="@+id/action_memberDetailsFragment_to_commentsFragment"
+            app:destination="@id/commentsFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/detailsFragment"
-        android:name="com.example.oop1parliament.DetailsFragment"
+        android:id="@+id/commentsFragment"
+        android:name="com.example.oop1parliament.CommentsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_comments" />
+
     <fragment
-        android:id="@+id/partyFragment"
-        android:name="com.example.oop1parliament.PartyFragment"
+        android:id="@+id/partyMembersFragment"
+        android:name="com.example.oop1parliament.PartyMembersFragment"
         android:label="fragment_party"
         tools:layout="@layout/fragment_party" >
         <action
-            android:id="@+id/action_partyFragment_to_memberFragment"
-            app:destination="@id/memberFragment" />
+            android:id="@+id/action_partyMembersFragment_to_memberDetailsFragment"
+            app:destination="@id/memberDetailsFragment" />
     </fragment>
 </navigation>

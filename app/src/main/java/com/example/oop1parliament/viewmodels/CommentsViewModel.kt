@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import com.example.oop1parliament.MemberVote
 import com.example.oop1parliament.MemberVoteDB
 
-class DetailsViewModel (application: Application) : AndroidViewModel(application) {
+class CommentsViewModel (application: Application) : AndroidViewModel(application) {
 
     private val memberVoteDB = MemberVoteDB.getInstance(application.applicationContext)
     val membersToVote: LiveData<List<MemberVote>>

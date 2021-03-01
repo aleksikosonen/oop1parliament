@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.oop1parliament.databinding.FragmentPartyBinding
-import com.example.oop1parliament.viewmodels.PartyViewModel
+import com.example.oop1parliament.viewmodels.PartyMembersViewModel
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -34,8 +34,8 @@ private const val ARG_PARAM2 = "param2"
  * Use the [PartyFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PartyFragment : Fragment() {
-    lateinit var viewModel : PartyViewModel
+class PartyMembersFragment : Fragment() {
+    lateinit var viewModel : PartyMembersViewModel
     private lateinit var adapter: MemberListAdapter
 
     // TODO: Rename and change types of parameters
@@ -56,8 +56,8 @@ class PartyFragment : Fragment() {
         val binding: FragmentPartyBinding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_party, container, false)
 
-        viewModel = ViewModelProvider(this).get(PartyViewModel::class.java)
-        binding.viewModel = viewModel
+        viewModel = ViewModelProvider(this).get(PartyMembersViewModel::class.java)
+        //binding.viewModel = viewModel
 
         var selectedParty = arguments?.getString("party") ?: "vihr"
         Log.d("Partyselect", selectedParty)
@@ -106,7 +106,7 @@ class PartyFragment : Fragment() {
 
 
         binding.buttonToMember.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_partyFragment_to_memberFragment)
+            view.findNavController().navigate(R.id.action_partyMembersFragment_to_memberDetailsFragment)
         }
 
         setHasOptionsMenu(true)
@@ -126,7 +126,7 @@ class PartyFragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                PartyFragment().apply {
+                PartyMembersFragment().apply {
                     arguments = Bundle().apply {
                         putString(ARG_PARAM1, param1)
                         putString(ARG_PARAM2, param2)
@@ -167,7 +167,7 @@ class MemberListAdapter(private val context: Context): ListAdapter<ParliamentMem
             selectedHeteka = getItem(position).hetekaId
             Log.d("DDDD", "$selectedMember pressed with heteka of $selectedHeteka")
             val bundle = bundleOf("heteka" to selectedHeteka)
-            it.findNavController().navigate(R.id.action_partyFragment_to_memberFragment, bundle)
+            it.findNavController().navigate(R.id.action_partyMembersFragment_to_memberDetailsFragment, bundle)
         }
     }
 }

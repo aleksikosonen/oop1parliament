@@ -9,7 +9,7 @@ import kotlinx.coroutines.handleCoroutineException
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
-class MemberViewModel(application: Application, heteka: Int) : AndroidViewModel(application) {
+class MemberDetailsViewModel(application: Application, heteka: Int) : AndroidViewModel(application) {
 
     var selectedHeteka = heteka
 
@@ -66,8 +66,8 @@ class MemberViewModel(application: Application, heteka: Int) : AndroidViewModel(
 
 class MemberViewModelFactory(private val application: Application, private val heteka: Int) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MemberViewModel::class.java)) {
-            return MemberViewModel(application, heteka) as T
+        if (modelClass.isAssignableFrom(MemberDetailsViewModel::class.java)) {
+            return MemberDetailsViewModel(application, heteka) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
