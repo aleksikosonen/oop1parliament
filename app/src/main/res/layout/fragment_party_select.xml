@@ -9,23 +9,20 @@
         tools:context=".PartySelect">
 
         <!-- TODO: Update blank fragment layout -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:foregroundGravity="center_vertical|center">
 
             <TextView
                 android:id="@+id/placeHoldParties"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="88dp"
+                android:layout_marginTop="16dp"
                 android:text="Valitse puolue"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintHorizontal_bias="0.507"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +30,7 @@
                 android:id="@+id/moveToParty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="4dp"
                 android:text="Button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -41,11 +38,10 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/partyView"
-                android:layout_width="194dp"
-                android:layout_height="365dp"
-                android:layout_marginTop="36dp"
+                android:layout_width="363dp"
+                android:layout_height="523dp"
+                android:layout_marginTop="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/placeHoldParties" />
         </androidx.constraintlayout.widget.ConstraintLayout>

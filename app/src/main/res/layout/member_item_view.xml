@@ -19,7 +19,6 @@
         android:id="@+id/thumbnail"
         android:layout_width="69dp"
         android:layout_height="56dp"
-        android:contentDescription="TODO"
         android:scaleType="fitStart"
         app:srcCompat="@drawable/keskusta_logo_2020" />
 

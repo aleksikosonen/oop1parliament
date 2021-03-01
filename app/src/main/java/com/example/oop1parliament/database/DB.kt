@@ -51,7 +51,7 @@ interface MemberVoteDao {
     fun getMember(heteka: Int): Int
 }
 
-@Database(entities = [MemberVote::class], version = 1, exportSchema = false)
+@Database(entities = [MemberVote::class], version = 2, exportSchema = false)
 abstract class MemberVoteDB: RoomDatabase() {
     abstract val memberVoteDao : MemberVoteDao
     companion object {

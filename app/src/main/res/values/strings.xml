@@ -5,7 +5,7 @@
     <string name="play">Play</string>
     <string name="launch_app">Launch App!</string>
     <string-array name="parties_array">
-        <item>all</item>
+        <item>-</item>
         <item>Vihreät</item>
         <item>Vasemmistoliitto</item>
         <item>Keskusta</item>
@@ -15,5 +15,6 @@
         <item>Kokoomus</item>
         <item>Suomen Ruotsalainen kansanpuolue</item>
         <item>Liike Nyt</item>
+        <item>All</item>
     </string-array>
 </resources>

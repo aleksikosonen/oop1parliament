@@ -16,10 +16,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
 import com.example.oop1parliament.databinding.FragmentPartyBinding
 import com.example.oop1parliament.databinding.FragmentPartySelectBinding
@@ -58,7 +55,8 @@ class PartySelect : Fragment() {
 
         viewModel = ViewModelProvider(this).get(PartySelectViewModel::class.java)
 
-        binding.partyView.layoutManager = LinearLayoutManager(context)
+        //binding.partyView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.partyView.layoutManager = GridLayoutManager(context, 3)
         adapter = PartyListAdapter(requireContext().applicationContext)
         binding.partyView.adapter = adapter
 
@@ -67,6 +65,10 @@ class PartySelect : Fragment() {
                 adapter.submitList(it)
             }
         }
+
+
+
+
 
         return binding.root
     }
@@ -100,8 +102,23 @@ class PartyListAdapter(private val context: Context): ListAdapter<String, ViewHo
     }
 
     override fun onBindViewHolder(vh: ViewHolder2, pos: Int) {
-        Log.d("ZZZ", "onBindViewHolder($pos)")
-        vh.itemView.findViewById<TextView>(R.id.partyName).text = getItem(pos)
+        vh.itemView.findViewById<ImageView>(R.id.partyImage).setImageResource(R.drawable.kokoomus)
+        when (getItem(pos).toString()) {
+            "vihr" -> vh.itemView.findViewById<ImageView>(R.id.partyImage).setImageResource(R.drawable.vihrea)
+            "vas" -> vh.itemView.findViewById<ImageView>(R.id.partyImage).setImageResource(R.drawable.vas)
+            "kd" -> vh.itemView.findViewById<ImageView>(R.id.partyImage).setImageResource(R.drawable.kd)
+            "liik" -> vh.itemView.findViewById<ImageView>(R.id.partyImage).setImageResource(R.drawable.liik)
+            "kok" -> vh.itemView.findViewById<ImageView>(R.id.partyImage).setImageResource(R.drawable.kokoomus)
+            "kesk" -> vh.itemView.findViewById<ImageView>(R.id.partyImage).setImageResource(R.drawable.keskusta_logo_2020)
+            "ps" -> vh.itemView.findViewById<ImageView>(R.id.partyImage).setImageResource(R.drawable.peruss_logo_rgb)
+            "r" -> vh.itemView.findViewById<ImageView>(R.id.partyImage).setImageResource(R.drawable.rkp)
+            "sd" -> vh.itemView.findViewById<ImageView>(R.id.partyImage).setImageResource(R.drawable.sdp)
+        }
+        vh.itemView.setOnClickListener{
+            val selectedParty = getItem(pos)
+            val bundle = bundleOf("party" to selectedParty)
+            it.findNavController().navigate(R.id.action_partySelect_to_partyFragment, bundle)
+        }
     }
 }
 

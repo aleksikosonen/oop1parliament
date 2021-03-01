@@ -65,6 +65,9 @@ class PartyFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(PartyViewModel::class.java)
         binding.viewModel = viewModel
 
+        var selectedParty = arguments?.getString("party") ?: "vihr"
+        Log.d("Partyselect", selectedParty)
+
         val context = requireContext().applicationContext
 
         adapter = MemberListAdapter(context)
@@ -80,18 +83,19 @@ class PartyFragment : Fragment() {
         }
 
         viewModel.parliamentMembers.observe(viewLifecycleOwner, {
-            adapter.submitList(viewModel.parliamentMembers.value)
+            adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party==selectedParty })
         })
+
 
 
         binding.partySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                adapter.submitList(viewModel.parliamentMembers.value)
+                adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party == selectedParty })
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
-                    0 -> adapter.submitList(viewModel.parliamentMembers.value)
+                    //0 -> adapter.submitList(viewModel.parliamentMembers.value)
                     1 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="vihr" })
                     2 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="vas" })
                     3 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="kesk" })
@@ -101,6 +105,7 @@ class PartyFragment : Fragment() {
                     7 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="kok" })
                     8 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="r" })
                     9 -> adapter.submitList(viewModel.parliamentMembers.value?.filter { it.party=="liik" })
+                    10 -> adapter.submitList(viewModel.parliamentMembers.value)
                 }
             }
         }

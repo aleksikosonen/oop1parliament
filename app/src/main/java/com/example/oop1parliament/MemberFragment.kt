@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
@@ -35,6 +37,8 @@ class MemberFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var BASE_URL = "https://avoindata.eduskunta.fi/"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -46,11 +50,15 @@ class MemberFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_member, container, false)
-        viewModel = ViewModelProvider(this).get(MemberViewModel::class.java)
-        binding.viewModel = viewModel
-
         var selectedHeteka = arguments?.getInt("heteka") ?: 1297
+
+        val application = requireNotNull(activity).application
+        val viewModelFactory = MemberViewModelFactory(application, selectedHeteka)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MemberViewModel::class.java)
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_member, container, false)
+
+        binding.viewModel = viewModel
 
         viewModel.parliamentMembers.observe(viewLifecycleOwner) { getMemberDetails(selectedHeteka) }
 
@@ -60,36 +68,52 @@ class MemberFragment : Fragment() {
         }
 
         binding.likeButton.setOnClickListener {
+            val addedComment = binding.addComment.text.toString()
             val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
-            viewModel.voteMember(selectedHeteka, likeAmount + 1)
+            viewModel.voteMember(selectedHeteka, likeAmount + 1, addedComment)
+            Toast.makeText(requireContext().applicationContext, "Lisättiin kommentti ${addedComment}", Toast.LENGTH_SHORT).show()
         }
 
         binding.dislikeButton.setOnClickListener{
+            val addedComment = binding.addComment.text.toString()
             val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
-            viewModel.voteMember(selectedHeteka, likeAmount - 1)
+            viewModel.voteMember(selectedHeteka, likeAmount - 1, addedComment)
         }
 
         binding.toDetails.setOnClickListener{view : View ->
             view.findNavController().navigate(R.id.action_memberFragment_to_detailsFragment)
         }
 
+        binding.toDetails.setOnClickListener{view : View ->
+            val addedComment = binding.addComment.text.toString()
+            Log.d("ääh", addedComment)
+            val bundle = bundleOf("Selected heteka" to selectedHeteka)
+            //viewModel.commentMember(0, addedComment)
+            //binding.likeCount.text = viewModel.membersToVote.value?.find { it.hetekaId==selectedHeteka }?.comment
+            view.findNavController().navigate(R.id.action_memberFragment_to_detailsFragment, bundle)
+        }
+
+/*
         binding.getRandomMember.setOnClickListener {
             val randomIndex = viewModel.parliamentMembers.value?.size ?: 0
             val random = Random.nextInt(randomIndex)
             selectedHeteka = viewModel.parliamentMembers.value?.get(random)?.hetekaId ?: 1297
+            Log.d("Hetekabug", "${viewModel.selectedHeteka}")
+            viewModel.selectedHeteka = selectedHeteka
+            Log.d("Hetekabug", "${viewModel.selectedHeteka}")
             getMemberDetails(selectedHeteka)
-        }
+        }*/
 
         setHasOptionsMenu(true)
         return binding.root
     }
 
     private fun getMemberDetails(selectedHeteka: Int) {
-        Glide.with(this).load("https://avoindata.eduskunta.fi/" + viewModel.parliamentMembers.value?.find{it.hetekaId==selectedHeteka }?.pictureUrl).into(binding.lennu)
+        Glide.with(this).load(BASE_URL + viewModel.getUrl()).into(binding.lennu)
 
-        binding.memberName.text = viewModel.getMemberName(selectedHeteka)
+        binding.memberName.text = viewModel.getMemberName()
 
-        when (viewModel.getMemberParty(selectedHeteka)) {
+        when (viewModel.getParty()) {
             "kesk" -> binding.logoView.setImageResource(R.drawable.keskusta_logo_2020)
             "ps" -> binding.logoView.setImageResource(R.drawable.peruss_logo_rgb)
             "sd" -> binding.logoView.setImageResource(R.drawable.sdp)
@@ -101,6 +125,9 @@ class MemberFragment : Fragment() {
             "liik" -> binding.logoView.setImageResource(R.drawable.liik)
         }
 
+        //Glide.with(this).load("https://avoindata.eduskunta.fi/" + viewModel.parliamentMembers.value?.find{it.hetekaId==selectedHeteka }?.pictureUrl).into(binding.lennu)
+        //binding.memberName.text = viewModel.name.toString()
+        //Log.d("VMF", "${viewModel.name}")
     }
 
     companion object {
