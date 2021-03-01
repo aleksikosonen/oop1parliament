@@ -11,9 +11,4 @@ class CommentsViewModel (application: Application) : AndroidViewModel(applicatio
     private val memberVoteDB = MemberVoteDB.getInstance(application.applicationContext)
     val membersToVote: LiveData<List<MemberVote>>
         get() = memberVoteDB.memberVoteDao.getAll()
-
-    fun getComments(heteka: Int) : String {
-        val comments = membersToVote.value?.find { it.hetekaId == heteka }?.comments
-        return "$comments"
-    }
 }

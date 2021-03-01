@@ -66,18 +66,23 @@ class MemberDetailsFragment : Fragment() {
             val addedComment = ""
             val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
             memberDetailsViewModel.voteMember(selectedHeteka, likeAmount + 1, addedComment)
-            //Toast.makeText(requireContext().applicationContext, "Lisättiin kommentti ${addedComment}", Toast.LENGTH_SHORT).show()
         }
 
-        binding.comment.setOnClickListener {
-            val addedComment = binding.addComment.text.toString() + "\n"
-            val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
-            memberDetailsViewModel.voteMember(selectedHeteka, likeAmount + 0, addedComment)
-            Toast.makeText(requireContext().applicationContext, "Lisättiin kommentti ${addedComment}", Toast.LENGTH_SHORT).show()
+        memberDetailsViewModel.membersToVote.observe(viewLifecycleOwner) {
+
+            var previousComments = it.find { it.hetekaId==selectedHeteka }?.comments.toString()
+            if (previousComments==null) previousComments = ""
+
+            binding.comment.setOnClickListener {
+                val addedComment = binding.addComment.text.toString() + "\n"
+                val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
+                memberDetailsViewModel.voteMember(selectedHeteka, likeAmount + 0, previousComments + addedComment)
+                Toast.makeText(requireContext().applicationContext, "Lisättiin kommentti ${addedComment}", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.dislikeButton.setOnClickListener{
-            val addedComment = binding.addComment.text.toString()
+            val addedComment = ""
             val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
             memberDetailsViewModel.voteMember(selectedHeteka, likeAmount - 1, addedComment)
         }
@@ -87,7 +92,7 @@ class MemberDetailsFragment : Fragment() {
         }
 
         binding.toDetails.setOnClickListener{view : View ->
-            val bundle = bundleOf("Selected heteka" to selectedHeteka)
+            val bundle = bundleOf("Selected heteka" to selectedHeteka, "Name" to  memberDetailsViewModel.getMemberName() )
             view.findNavController().navigate(R.id.action_memberDetailsFragment_to_commentsFragment, bundle)
         }
 

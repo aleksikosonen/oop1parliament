@@ -1,6 +1,7 @@
 package com.example.oop1parliament
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.oop1parliament.repository.MemberRepository
 import kotlinx.coroutines.launch
@@ -17,8 +18,6 @@ class MemberDetailsViewModel(application: Application, heteka: Int) : AndroidVie
     val membersToVote: LiveData<List<MemberVote>>
         get() = memberVoteDB.memberVoteDao.getAll()
 
-    //var name = parliamentMembers.value?.find { it.hetekaId==selectedHeteka }?.firstname.toString()
-
     fun getMemberName() : String {
         val firstName = parliamentMembers.value?.find { it.hetekaId == selectedHeteka }?.firstname
         val lastName = parliamentMembers.value?.find { it.hetekaId == selectedHeteka }?.lastname
@@ -34,21 +33,9 @@ class MemberDetailsViewModel(application: Application, heteka: Int) : AndroidVie
         val party = parliamentMembers.value?.find { it.hetekaId == selectedHeteka }?.party
         return "$party"
     }
-/*
-    fun getMemberName(heteka: Int) : String {
-        val firstName = parliamentMembers.value?.find { it.hetekaId == heteka }?.firstname
-        val lastName = parliamentMembers.value?.find { it.hetekaId == heteka }?.lastname
-        return "$firstName $lastName"
-    }*/
 
-    fun getMemberParty(heteka: Int) : String {
-        val party = parliamentMembers.value?.find { it.hetekaId == heteka }?.party
-        return "$party"
-    }
-
-    fun getMemberVotes() : String {
-        val votes = membersToVote.value?.find { it.hetekaId == selectedHeteka }?.likeCount.toString()
-        return "$votes"
+    fun getMemberComments(): String {
+         return parliamentMembers.value?.find { it.hetekaId==selectedHeteka }?.party.toString()
     }
 
     fun voteMember(heteka: Int, likeCount: Int, addedComment : String) {

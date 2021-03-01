@@ -41,6 +41,9 @@ class CommentsFragment : Fragment() {
         commentsViewModel = ViewModelProvider(this).get(CommentsViewModel::class.java)
 
         var selectedHeteka = arguments?.getInt("Selected heteka") ?: 1297
+        var selectedName = arguments?.getString("Name") ?: "Ei nimeä"
+
+        binding.commentsTitle.append(selectedName)
 
         commentsViewModel.membersToVote.observe(viewLifecycleOwner) {
             binding.detailsName.text = it.find { it.hetekaId==selectedHeteka }?.comments.toString()

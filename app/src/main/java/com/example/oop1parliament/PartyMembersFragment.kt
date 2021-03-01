@@ -153,18 +153,6 @@ class PartyMembersFragment : Fragment() {
                 }
     }
 }
-/*
-class SpinnerActivity : Activity(), AdapterView.OnItemSelectedListener {
-
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>) {
-        // Another interface callback
-    }
-}*/
 
 class MemberListAdapter(private val context: Context): ListAdapter<ParliamentMember, MemberViewHolder>(MemberDiffCallback()) {
 
@@ -179,12 +167,9 @@ class MemberListAdapter(private val context: Context): ListAdapter<ParliamentMem
         holder.itemView.findViewById<TextView>(R.id.membername).text = getItem(position).firstname + " " +  getItem(position).lastname
         holder.itemView.findViewById<TextView>(R.id.memberparty).text = getItem(position).party
         holder.itemView.findViewById<ImageView>(R.id.thumbnail).setImageResource(R.drawable.vihrea)
-        //holder.itemView.findViewById<ImageView>(R.id.thumbnail).(Glide.with(this).load("https://avoindata.eduskunta.fi/" + getItem(position).pictureUrl))
         Glide.with(context).load("https://avoindata.eduskunta.fi/" + getItem(position).pictureUrl).into(holder.itemView.findViewById<ImageView>(R.id.thumbnail))
         holder.itemView.setOnClickListener{
-            val selectedMember = getItem(position).firstname
             selectedHeteka = getItem(position).hetekaId
-            Log.d("DDDD", "$selectedMember pressed with heteka of $selectedHeteka")
             val bundle = bundleOf("heteka" to selectedHeteka)
             it.findNavController().navigate(R.id.action_partyMembersFragment_to_memberDetailsFragment, bundle)
         }
@@ -201,10 +186,4 @@ class MemberDiffCallback: DiffUtil.ItemCallback<ParliamentMember>() {
         return oldItem.firstname == newItem.firstname
     }
 }
-
-/*
-class MainViewModel(application: Application) : AndroidViewModel(application) {
-    val members: LiveData<List<ParliamentMember>> = ParliamentMemberDB.getInstance(application.applicationContext).parliamentMemberDao.getAll()
-}*/
-
 
