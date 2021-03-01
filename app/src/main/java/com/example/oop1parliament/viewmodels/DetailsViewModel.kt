@@ -1,8 +1,10 @@
-package com.example.oop1parliament
+package com.example.oop1parliament.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import com.example.oop1parliament.MemberVote
+import com.example.oop1parliament.MemberVoteDB
 
 class DetailsViewModel (application: Application) : AndroidViewModel(application) {
 

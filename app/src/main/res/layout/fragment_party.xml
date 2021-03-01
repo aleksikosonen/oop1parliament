@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.oop1parliament.PartyViewModel" />
+            type="com.example.oop1parliament.viewmodels.PartyViewModel" />
     </data>
 
     <FrameLayout

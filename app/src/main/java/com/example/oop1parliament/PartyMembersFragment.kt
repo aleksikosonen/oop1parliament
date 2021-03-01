@@ -1,7 +1,5 @@
 package com.example.oop1parliament
 
-import android.app.Activity
-import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -9,17 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +21,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.oop1parliament.databinding.FragmentPartyBinding
-import com.example.oop1parliament.databinding.FragmentPartyBindingImpl
+import com.example.oop1parliament.viewmodels.PartyViewModel
 
 
 // TODO: Rename parameter arguments, choose names that match

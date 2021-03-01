@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.oop1parliament.databinding.FragmentDetailsBinding
-import com.example.oop1parliament.databinding.FragmentMemberBinding
+import com.example.oop1parliament.viewmodels.DetailsViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

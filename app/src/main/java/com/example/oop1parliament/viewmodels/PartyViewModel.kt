@@ -1,9 +1,9 @@
-package com.example.oop1parliament
+package com.example.oop1parliament.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
-import kotlinx.coroutines.launch
+import com.example.oop1parliament.MemberRepository
+import com.example.oop1parliament.ParliamentMemberDB
 
 class PartyViewModel(application: Application): AndroidViewModel(application) {
     val memberRepository = MemberRepository(ParliamentMemberDB.getInstance(application.applicationContext))
