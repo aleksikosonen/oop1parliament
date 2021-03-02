@@ -19,11 +19,12 @@
                 android:id="@+id/placeHoldParties"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Valitse puolue!"
+                android:layout_marginTop="32dp"
+                android:text="Valitse puolue"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.507"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,17 +32,18 @@
                 android:id="@+id/moveToParty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="NÄYTÄ KAIKKI JÄSENET"
+                android:layout_marginBottom="32dp"
                 android:backgroundTint="@color/eduskunta"
+                android:text="NÄYTÄ KAIKKI EDUSKUNNAN JÄSENET"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/partyView" />
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/partyView"
-                android:layout_width="354dp"
-                android:layout_height="404dp"
+                android:layout_width="353dp"
+                android:layout_height="485dp"
                 android:layout_marginTop="44dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

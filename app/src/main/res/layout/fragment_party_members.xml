@@ -16,18 +16,18 @@
                 android:id="@+id/buttonToMember"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginBottom="32dp"
                 android:backgroundTint="@color/eduskunta"
-                android:text="Details"
+                android:text="Katso tietoja"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/partySpinner" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/memberView"
-                android:layout_width="331dp"
-                android:layout_height="328dp"
+                android:layout_width="339dp"
+                android:layout_height="406dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.462"
@@ -46,10 +46,11 @@
 
             <ImageView
                 android:id="@+id/partyLogo"
-                android:layout_width="139dp"
-                android:layout_height="133dp"
-                android:layout_marginTop="16dp"
+                android:layout_width="128dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/eduskunta" />
