@@ -27,10 +27,10 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class MemberDetailsFragment : Fragment() {
-    //private lateinit var viewModel: MainViewModel
+
     private lateinit var memberDetailsViewModel: MemberDetailsViewModel
     private lateinit var binding: FragmentMemberDetailsBinding
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -85,10 +85,6 @@ class MemberDetailsFragment : Fragment() {
             val addedComment = ""
             val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
             memberDetailsViewModel.voteMember(selectedHeteka, likeAmount - 1, addedComment)
-        }
-
-        binding.toDetails.setOnClickListener{view : View ->
-            view.findNavController().navigate(R.id.action_memberDetailsFragment_to_commentsFragment)
         }
 
         binding.toDetails.setOnClickListener{view : View ->
