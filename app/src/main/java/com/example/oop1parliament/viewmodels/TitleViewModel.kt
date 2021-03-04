@@ -13,12 +13,12 @@ import kotlinx.coroutines.launch
 class TitleViewModel(application: Application) : AndroidViewModel(application) {
     private val memberRepository = MemberRepository(ParliamentMemberDB.getInstance(application.applicationContext))
 
-
-    /*init {
-        insertMembers()
-    }*/
-
 /*
+    init {
+        insertMembers()
+    }
+
+
     private fun insertMembers() {
         viewModelScope.launch {
             try {

@@ -9,32 +9,20 @@
         android:id="@+id/titleFragment"
         android:name="com.example.oop1parliament.TitleFragment"
         android:label="fragment_title"
-        tools:layout="@layout/fragment_title" >
-        <action
-            android:id="@+id/action_titleFragment_to_partySelect"
-            app:destination="@id/partySelect" />
-    </fragment>
+        tools:layout="@layout/fragment_title" />
 
     <fragment
         android:id="@+id/partySelect"
         android:name="com.example.oop1parliament.PartySelect"
         android:label="PartySelect"
-        tools:layout="@layout/fragment_party_select">
-        <action
-            android:id="@+id/action_partySelect_to_partyMembersFragment"
-            app:destination="@id/partyMembersFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_party_select"/>
 
 
     <fragment
         android:id="@+id/memberDetailsFragment"
         android:name="com.example.oop1parliament.MemberDetailsFragment"
         android:label="MemberFragment"
-        tools:layout="@layout/fragment_member_details">
-        <action
-            android:id="@+id/action_memberDetailsFragment_to_commentsFragment"
-            app:destination="@id/commentsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_member_details"/>
 
     <fragment
         android:id="@+id/commentsFragment"
@@ -46,9 +34,9 @@
         android:id="@+id/partyMembersFragment"
         android:name="com.example.oop1parliament.PartyMembersFragment"
         android:label="fragment_party"
-        tools:layout="@layout/fragment_party_members" >
-        <action
-            android:id="@+id/action_partyMembersFragment_to_memberDetailsFragment"
-            app:destination="@id/memberDetailsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_party_members" />
+    <action android:id="@+id/action_global_partyMembersFragment" app:destination="@id/partyMembersFragment" />
+    <action android:id="@+id/action_global_titleFragment" app:destination="@id/titleFragment" />
+    <action android:id="@+id/action_global_partySelect" app:destination="@id/partySelect" />
+    <action android:id="@+id/action_global_memberDetailsFragment" app:destination="@id/memberDetailsFragment" /><action android:id="@+id/action_global_commentsFragment" app:destination="@id/commentsFragment"/>
 </navigation>

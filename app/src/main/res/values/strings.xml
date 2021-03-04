@@ -1,9 +1,8 @@
 <resources>
-    <string name="app_name">oop1parliament</string>
+    <string name="app_name">eddu</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="play">Play</string>
-    <string name="launch_app">Näytä puolueet!</string>
+    <string name="welcome">Tervetuloa edduun! \n\neddu on sovellus josta voit tarkistella kansanedustajia\</string>
+    <string name="showall">Näytä kaikki kansanedustajat</string>
     <string-array name="parties_array">
         <item>-</item>
         <item>Vihreät</item>

@@ -46,11 +46,6 @@ class TitleFragment : Fragment() {
 
         titleViewModel = ViewModelProvider(this).get(TitleViewModel::class.java)
 
-        binding.playButton.setOnClickListener { view : View ->
-            Log.d("DDDD", "Launched")
-            view.findNavController().navigate(R.id.action_titleFragment_to_partySelect)
-        }
-
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -75,22 +70,3 @@ class TitleFragment : Fragment() {
             }
     }
 }
-/*
-class AddMemberViewModel(application: Application) : AndroidViewModel(application) {
-    private val memberRepository = MemberRepository(ParliamentMemberDB.getInstance(application.applicationContext))
-
-    init {
-        insertMembers()
-    }
-
-    private fun insertMembers() {
-        viewModelScope.launch {
-            try {
-                memberRepository.getMembers()
-
-            } catch (e: Exception) {
-                Log.d("***", e.toString())
-            }
-        }
-    }
-}*/

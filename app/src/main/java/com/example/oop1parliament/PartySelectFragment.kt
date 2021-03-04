@@ -46,11 +46,11 @@ class PartySelect : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_party_select, container, false)
-        binding.moveToParty.setOnClickListener { view : View -> view.findNavController().navigate(R.id.action_partySelect_to_partyMembersFragment) }
+        binding.moveToParty.setOnClickListener { view : View -> view.findNavController().navigate(R.id.action_global_partyMembersFragment) }
 
         partySelectViewModel = ViewModelProvider(this).get(PartySelectViewModel::class.java)
 
-        //binding.partyView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.partyView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.partyView.layoutManager = GridLayoutManager(context, 3)
         adapter = PartyListAdapter(requireContext().applicationContext)
         binding.partyView.adapter = adapter
@@ -108,7 +108,7 @@ class PartyListAdapter(private val context: Context): ListAdapter<String, ViewHo
         vh.itemView.setOnClickListener{
             val selectedParty = getItem(pos)
             val bundle = bundleOf("party" to selectedParty)
-            it.findNavController().navigate(R.id.action_partySelect_to_partyMembersFragment, bundle)
+            it.findNavController().navigate(R.id.action_global_partyMembersFragment, bundle)
         }
     }
 }

@@ -17,10 +17,10 @@
                 android:id="@+id/memberName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-black"
-                android:textSize="35sp"
                 android:textColor="@color/black"
+                android:textSize="35sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,11 +40,11 @@
 
             <ImageButton
                 android:id="@+id/likeButton"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_marginStart="72dp"
-                android:layout_marginLeft="72dp"
-                android:layout_marginTop="28dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="96dp"
+                android:layout_marginLeft="96dp"
+                android:layout_marginTop="20dp"
                 android:background="?android:selectableItemBackground"
                 android:scaleType="fitStart"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,11 +53,11 @@
 
             <ImageButton
                 android:id="@+id/dislikeButton"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="60dp"
-                android:layout_marginRight="60dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="92dp"
+                android:layout_marginRight="92dp"
                 android:background="?android:selectableItemBackground"
                 android:scaleType="fitStart"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -68,21 +68,22 @@
                 android:id="@+id/likeCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/logoView" />
+                android:layout_marginTop="4dp"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="@+id/lennu"
+                app:layout_constraintHorizontal_bias="0.321"
+                app:layout_constraintStart_toStartOf="@+id/lennu"
+                app:layout_constraintTop_toBottomOf="@+id/memberName" />
 
             <ImageView
                 android:id="@+id/logoView"
                 android:layout_width="102dp"
                 android:layout_height="89dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/memberName" />
+                app:layout_constraintTop_toBottomOf="@+id/likeCount" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/lennu"
@@ -113,7 +114,7 @@
                 android:layout_height="49dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="36dp"
                 android:ems="10"
                 android:hint="Lisää kommentti kansanedustajasta"
                 android:inputType="textPersonName"
@@ -137,13 +138,26 @@
                 android:id="@+id/toDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="60dp"
                 android:backgroundTint="@color/eduskunta"
                 android:text="Katso kommentteja"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginLeft="3dp"
+                android:text="tykkäystä"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/likeCount"
+                app:layout_constraintStart_toEndOf="@+id/likeCount"
+                app:layout_constraintTop_toTopOf="@+id/likeCount"
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

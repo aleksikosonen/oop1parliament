@@ -57,7 +57,6 @@ class PartyMembersFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_party_members, container, false)
 
         partyMembersViewModel = ViewModelProvider(this).get(PartyMembersViewModel::class.java)
-        //binding.viewModel = viewModel
 
         var selectedParty = arguments?.getString("party") ?: "all"
 
@@ -125,7 +124,7 @@ class PartyMembersFragment : Fragment() {
 
 
         binding.buttonToMember.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_partyMembersFragment_to_memberDetailsFragment)
+            view.findNavController().navigate(R.id.action_global_memberDetailsFragment)
         }
 
         setHasOptionsMenu(true)
@@ -134,15 +133,6 @@ class PartyMembersFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PartyFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
                 PartyMembersFragment().apply {
@@ -171,7 +161,7 @@ class MemberListAdapter(private val context: Context): ListAdapter<ParliamentMem
         holder.itemView.setOnClickListener{
             selectedHeteka = getItem(position).hetekaId
             val bundle = bundleOf("heteka" to selectedHeteka)
-            it.findNavController().navigate(R.id.action_partyMembersFragment_to_memberDetailsFragment, bundle)
+            it.findNavController().navigate(R.id.action_global_memberDetailsFragment, bundle)
         }
     }
 }

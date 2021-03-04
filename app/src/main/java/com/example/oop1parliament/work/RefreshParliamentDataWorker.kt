@@ -17,12 +17,13 @@ class RefreshParliamentDataWorker(appContext: Context, params: WorkerParameters)
     }
 
     override suspend fun doWork(): Result {
-        val database = ParliamentMemberDB.getInstance(MyApp.appContext)
+        Log.d("WM/D","dowork")
+        val database = ParliamentMemberDB.getInstance(applicationContext)
         val repository = MemberRepository(database)
 
         try {
             repository.getMembers()
-
+            Log.d("WORKER", "Tryin")
         } catch (e: HttpException) {
             return Result.retry()
         }

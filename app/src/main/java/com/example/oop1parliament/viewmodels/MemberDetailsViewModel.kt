@@ -34,10 +34,6 @@ class MemberDetailsViewModel(application: Application, heteka: Int) : AndroidVie
         return "$party"
     }
 
-    fun getMemberComments(): String {
-         return parliamentMembers.value?.find { it.hetekaId==selectedHeteka }?.party.toString()
-    }
-
     fun voteMember(heteka: Int, likeCount: Int, addedComment : String) {
         viewModelScope.launch {
             memberVoteDB

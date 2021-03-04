@@ -51,8 +51,8 @@ class MemberDetailsFragment : Fragment() {
 
         val application = requireNotNull(activity).application
         val viewModelFactory = MemberViewModelFactory(application, selectedHeteka)
-        memberDetailsViewModel = ViewModelProvider(this, viewModelFactory).get(MemberDetailsViewModel::class.java)
 
+        memberDetailsViewModel = ViewModelProvider(this, viewModelFactory).get(MemberDetailsViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_member_details, container, false)
 
         memberDetailsViewModel.parliamentMembers.observe(viewLifecycleOwner) { getMemberDetails(selectedHeteka) }
@@ -60,12 +60,6 @@ class MemberDetailsFragment : Fragment() {
         memberDetailsViewModel.membersToVote.observe(viewLifecycleOwner) {
             binding.likeCount.text = it.find { it.hetekaId == selectedHeteka }?.likeCount.toString()
             if (binding.likeCount.text=="null") binding.likeCount.text = "0"
-        }
-
-        binding.likeButton.setOnClickListener {
-            val addedComment = ""
-            val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
-            memberDetailsViewModel.voteMember(selectedHeteka, likeAmount + 1, addedComment)
         }
 
         memberDetailsViewModel.membersToVote.observe(viewLifecycleOwner) {
@@ -79,17 +73,23 @@ class MemberDetailsFragment : Fragment() {
                 memberDetailsViewModel.voteMember(selectedHeteka, likeAmount + 0, previousComments + addedComment)
                 Toast.makeText(requireContext().applicationContext, "Lisättiin kommentti ${addedComment}", Toast.LENGTH_SHORT).show()
             }
-        }
 
-        binding.dislikeButton.setOnClickListener{
-            val addedComment = ""
-            val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
-            memberDetailsViewModel.voteMember(selectedHeteka, likeAmount - 1, addedComment)
+            binding.dislikeButton.setOnClickListener{
+                val addedComment = ""
+                val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
+                memberDetailsViewModel.voteMember(selectedHeteka, likeAmount - 1, previousComments + addedComment)
+            }
+
+            binding.likeButton.setOnClickListener {
+                val addedComment = ""
+                val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
+                memberDetailsViewModel.voteMember(selectedHeteka, likeAmount + 1, previousComments + addedComment)
+            }
         }
 
         binding.toDetails.setOnClickListener{view : View ->
             val bundle = bundleOf("Selected heteka" to selectedHeteka, "Name" to  memberDetailsViewModel.getMemberName() )
-            view.findNavController().navigate(R.id.action_memberDetailsFragment_to_commentsFragment, bundle)
+            view.findNavController().navigate(R.id.action_global_commentsFragment, bundle)
         }
 
         setHasOptionsMenu(true)

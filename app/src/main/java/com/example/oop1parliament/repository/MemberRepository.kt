@@ -14,7 +14,7 @@ class MemberRepository(private val database: ParliamentMemberDB) {
     suspend fun getMembers() {
         withContext(Dispatchers.IO) {
             val memberList = MemberApi.retrofitService.getMembers()
-            for (i in 1..memberList.size-1) database.parliamentMemberDao.insertOrUpdate(memberList[i])
+            for (member in 1..memberList.size-1) database.parliamentMemberDao.insertOrUpdate(memberList[member])
         }
     }
 
