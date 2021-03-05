@@ -23,7 +23,7 @@ private const val ARG_PARAM2 = "param2"
 class CommentsFragment : Fragment() {
     private lateinit var commentsViewModel: CommentsViewModel
     private lateinit var binding: FragmentCommentsBinding
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -40,11 +40,13 @@ class CommentsFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_comments, container, false)
         commentsViewModel = ViewModelProvider(this).get(CommentsViewModel::class.java)
 
+        //Get name and heteka from bundle
         var selectedHeteka = arguments?.getInt("Selected heteka") ?: 1297
         var selectedName = arguments?.getString("Name") ?: "Ei nimeä"
 
         binding.commentsTitle.append(selectedName)
 
+        //Observe membersToVote-livedata to display the comments given to member
         commentsViewModel.membersToVote.observe(viewLifecycleOwner) {
             binding.detailsName.text = it.find { it.hetekaId==selectedHeteka }?.comments.toString()
         }
@@ -54,15 +56,6 @@ class CommentsFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
                 CommentsFragment().apply {

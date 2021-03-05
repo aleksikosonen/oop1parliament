@@ -24,42 +24,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding =
-            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
-        /*val navController = findNavController(R.id.myNavHostFragment)
+        //val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.ic_home -> {
-                    navController.navigate(R.id.action_global_titleFragment)
-                }
-                R.id.ic_list -> {navController.navigate(R.id.action_global_partySelect)}
-                R.id.ic_person -> {navController.navigate(R.id.action_global_partyMembersFragment)}
-                }
-            //return@OnNavigationItemSelectedListener true
-            true
-        }
+        //Variables needed for bottom navigation
+        val bottomNavigation = binding.bottomNavigation
+        val navController = findNavController(R.id.myNavHostFragment)
 
-        binding.bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-    }*/
-
-        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        val navController: NavController = findNavController(R.id.myNavHostFragment)
-
+        //Listener for bottom navigation to select which fragment is loaded
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
 
             when (item.itemId) {
-                R.id.ic_home -> {
-                    navController.navigate(R.id.action_global_titleFragment)
-                }
-                R.id.ic_list -> {
-                    navController.navigate(R.id.action_global_partySelect)
-                }
-                R.id.ic_person -> {
-                    navController.navigate(R.id.action_global_memberDetailsFragment)
-                }
+                R.id.ic_home -> { navController.navigate(R.id.action_global_titleFragment) }
+                R.id.ic_list -> { navController.navigate(R.id.action_global_partySelect) }
+                R.id.ic_person -> { navController.navigate(R.id.action_global_memberDetailsFragment) }
             }
             true
         }
