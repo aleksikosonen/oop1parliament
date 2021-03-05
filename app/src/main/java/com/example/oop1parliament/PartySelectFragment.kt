@@ -14,6 +14,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.*
 import com.example.oop1parliament.databinding.FragmentPartySelectBinding
+import com.example.oop1parliament.recyclerview.PartyListAdapter
 import com.example.oop1parliament.viewmodels.PartySelectViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -60,7 +61,6 @@ class PartySelect : Fragment() {
                 adapter.submitList(it)
             }
         }
-
         return binding.root
     }
 
@@ -85,7 +85,7 @@ class PartySelect : Fragment() {
     }
 }
 
-
+/*
 class PartyListAdapter(private val context: Context): ListAdapter<String, ViewHolder2>(MyDiffCallback()) {
     override fun onCreateViewHolder(vg: ViewGroup, vt: Int): ViewHolder2 {
         val itemView = LayoutInflater.from(context).inflate(R.layout.party_list_view, vg, false)
@@ -123,4 +123,4 @@ class MyDiffCallback : DiffUtil.ItemCallback<String>() {
     override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
         return oldItem == newItem
     }
-}
+}*/

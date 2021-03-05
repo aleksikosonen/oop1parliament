@@ -22,6 +22,7 @@
                 android:layout_marginTop="32dp"
                 android:text="Valitse puolue"
                 android:textSize="20dp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"

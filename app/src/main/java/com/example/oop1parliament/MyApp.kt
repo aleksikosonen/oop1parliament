@@ -17,7 +17,6 @@ import java.util.concurrent.TimeUnit
 class MyApp : Application() {
     
     private val applicationScope = CoroutineScope(Dispatchers.Default)
-    private val constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
 
     override fun onCreate() {
         Log.d("WM/D", "oncreate")

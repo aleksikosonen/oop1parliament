@@ -12,8 +12,8 @@
         android:title="Kansanedustajat"/>
 
     <item
-        android:id="@+id/ic_person"
+        android:id="@+id/ic_info"
         android:icon="@drawable/ic_person"
-        android:title="Tietoja"/>
+        android:title="Info"/>
 
 </menu>

@@ -15,17 +15,9 @@ import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.example.oop1parliament.databinding.FragmentMemberDetailsBinding
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MemberFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MemberDetailsFragment : Fragment() {
 
     private lateinit var memberDetailsViewModel: MemberDetailsViewModel
@@ -65,7 +57,7 @@ class MemberDetailsFragment : Fragment() {
         memberDetailsViewModel.membersToVote.observe(viewLifecycleOwner) {
 
             var previousComments = it.find { it.hetekaId==selectedHeteka }?.comments.toString()
-            if (previousComments==null) previousComments = ""
+            if (previousComments=="null") previousComments = ""
 
             binding.comment.setOnClickListener {
                 val addedComment = binding.addComment.text.toString() + "\n"

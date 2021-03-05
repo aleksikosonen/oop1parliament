@@ -39,4 +39,9 @@
     <action android:id="@+id/action_global_titleFragment" app:destination="@id/titleFragment" />
     <action android:id="@+id/action_global_partySelect" app:destination="@id/partySelect" />
     <action android:id="@+id/action_global_memberDetailsFragment" app:destination="@id/memberDetailsFragment" /><action android:id="@+id/action_global_commentsFragment" app:destination="@id/commentsFragment"/>
+    <fragment
+        android:id="@+id/appDetailsFragment"
+        android:name="com.example.oop1parliament.AppDetailsFragment"
+        android:label="fragment_app_details"
+        tools:layout="@layout/fragment_app_details" /><action android:id="@+id/action_global_appDetailsFragment" app:destination="@id/appDetailsFragment"/>
 </navigation>

@@ -3,6 +3,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="welcome">Tervetuloa edduun! \n\neddu on sovellus josta voit tarkistella kansanedustajia\</string>
     <string name="showall">Näytä kaikki kansanedustajat</string>
+    <string name="aboutTheApp">eddu on sovellus joka on kehitetty Metropolia ammattikorkeakoulun Olio-ohjelmointi kurssia varten.\n\n
+        Sovelluksessa käytetään Eduskunnan avointa rajapintaa jonka löydät osoitteesta: https://avoindata.eduskunta.fi/api/v1/seating/\n\n
+        Sovelluksen tekijä:\n\nAleksi Kosonen</string>
     <string-array name="parties_array">
         <item>-</item>
         <item>Vihreät</item>
@@ -14,6 +17,7 @@
         <item>Kokoomus</item>
         <item>Suomen Ruotsalainen kansanpuolue</item>
         <item>Liike Nyt</item>
-        <item>All</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

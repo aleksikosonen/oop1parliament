@@ -10,16 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.oop1parliament.databinding.FragmentCommentsBinding
 import com.example.oop1parliament.viewmodels.CommentsViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CommentsFragment : Fragment() {
     private lateinit var commentsViewModel: CommentsViewModel
     private lateinit var binding: FragmentCommentsBinding
@@ -48,9 +41,8 @@ class CommentsFragment : Fragment() {
 
         //Observe membersToVote-livedata to display the comments given to member
         commentsViewModel.membersToVote.observe(viewLifecycleOwner) {
-            binding.detailsName.text = it.find { it.hetekaId==selectedHeteka }?.comments.toString()
+            binding.detailsName.text = "${it.find { it.hetekaId==selectedHeteka }?.comments ?: "Ei kommentteja"}"
         }
-
 
         return binding.root
     }
