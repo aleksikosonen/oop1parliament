@@ -1,10 +1,9 @@
 package com.example.oop1parliament.repository
 
-import android.content.Context
 import androidx.lifecycle.LiveData
-import com.example.oop1parliament.MemberApi
-import com.example.oop1parliament.ParliamentMember
-import com.example.oop1parliament.ParliamentMemberDB
+import com.example.oop1parliament.database.ParliamentMemberDB
+import com.example.oop1parliament.network.MemberApi
+import com.example.oop1parliament.network.ParliamentMember
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

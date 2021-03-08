@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">eddu</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="welcome">Tervetuloa edduun! \n\neddu on sovellus josta voit tarkistella kansanedustajia\</string>
+    <string name="welcome">Tervetuloa edduun! \n\neddu on sovellus jossa voit tarkistella kansanedustajia</string>
     <string name="showall">Näytä kaikki kansanedustajat</string>
     <string name="aboutTheApp">eddu on sovellus joka on kehitetty Metropolia ammattikorkeakoulun Olio-ohjelmointi kurssia varten.\n\n
         Sovelluksessa käytetään Eduskunnan avointa rajapintaa jonka löydät osoitteesta: https://avoindata.eduskunta.fi/api/v1/seating/\n\n
@@ -18,6 +17,5 @@
         <item>Suomen Ruotsalainen kansanpuolue</item>
         <item>Liike Nyt</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

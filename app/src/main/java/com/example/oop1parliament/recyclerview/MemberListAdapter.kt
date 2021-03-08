@@ -2,19 +2,15 @@ package com.example.oop1parliament.recyclerview
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-
-import com.example.oop1parliament.ParliamentMember
 import com.example.oop1parliament.R
+import com.example.oop1parliament.network.ParliamentMember
 
 class MemberListAdapter(private val context: Context): ListAdapter<ParliamentMember, ViewHolder>(MemberDiffCallback()) {
 

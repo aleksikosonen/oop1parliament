@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
             when (item.itemId) {
                 R.id.ic_home -> { navController.navigate(R.id.action_global_titleFragment) }
-                R.id.ic_list -> { navController.navigate(R.id.action_global_partySelect) }
+                R.id.ic_person -> { navController.navigate(R.id.action_global_partySelect) }
                 R.id.ic_info -> { navController.navigate(R.id.action_global_appDetailsFragment) }
             }
             true

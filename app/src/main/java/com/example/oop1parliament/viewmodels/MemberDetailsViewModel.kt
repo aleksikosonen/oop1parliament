@@ -1,8 +1,11 @@
 package com.example.oop1parliament
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
+import com.example.oop1parliament.database.MemberVoteDB
+import com.example.oop1parliament.database.ParliamentMemberDB
+import com.example.oop1parliament.network.MemberVote
+import com.example.oop1parliament.network.ParliamentMember
 import com.example.oop1parliament.repository.MemberRepository
 import kotlinx.coroutines.launch
 

@@ -1,9 +1,10 @@
-package com.example.oop1parliament
+package com.example.oop1parliament.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import kotlinx.coroutines.selects.select
+import com.example.oop1parliament.network.MemberVote
+import com.example.oop1parliament.network.ParliamentMember
 
 @Dao
 interface ParliamentMemberDao {
