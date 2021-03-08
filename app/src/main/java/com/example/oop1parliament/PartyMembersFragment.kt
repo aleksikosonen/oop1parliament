@@ -1,72 +1,44 @@
 package com.example.oop1parliament
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.oop1parliament.databinding.FragmentPartyMembersBinding
 import com.example.oop1parliament.recyclerview.MemberListAdapter
 import com.example.oop1parliament.viewmodels.PartyMembersViewModel
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PartyFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PartyMembersFragment : Fragment() {
     lateinit var binding: FragmentPartyMembersBinding
     lateinit var partyMembersViewModel : PartyMembersViewModel
     private lateinit var adapter: MemberListAdapter
 
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
+        //Binding and viewmodel variables for PartyMembersFragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_party_members, container, false)
-
         partyMembersViewModel = ViewModelProvider(this).get(PartyMembersViewModel::class.java)
 
+        //Receive selected party string from bundle
         var selectedParty = arguments?.getString("party") ?: "all"
 
+        //Variable for app context
         val context = requireContext().applicationContext
 
+        //Set adapter and layoutmanager for memberView-recycler view
         adapter = MemberListAdapter(context)
         binding.memberView.adapter = adapter
         binding.memberView.layoutManager = LinearLayoutManager(context)
 
+        //Set properties for spinner which is used in the fragment for re-selecting the viewable party
         ArrayAdapter.createFromResource(context,
                 R.array.parties_array,
                 R.layout.support_simple_spinner_dropdown_item
@@ -75,11 +47,14 @@ class PartyMembersFragment : Fragment() {
             binding.partySpinner.adapter = adapter
         }
 
+        //Observer for parliamentMembers-livedata, which is filtered based on the selected party.
+        //Only the members from the selected party are submitted to the adapter
         partyMembersViewModel.parliamentMembers.observe(viewLifecycleOwner, {
             if (selectedParty == "all" ) adapter.submitList(partyMembersViewModel.parliamentMembers.value)
             else adapter.submitList(partyMembersViewModel.parliamentMembers.value?.filter { it.party==selectedParty })
         })
 
+        //When-claude for setting the right partylogo on the top of the fragment
         when (selectedParty) {
             "kesk" -> binding.partyLogo.setImageResource(R.drawable.keskusta_logo_2020)
             "ps" -> binding.partyLogo.setImageResource(R.drawable.peruss_logo_rgb)
@@ -93,6 +68,12 @@ class PartyMembersFragment : Fragment() {
             "all" -> binding.partyLogo.setImageResource(R.drawable.eduskunta)
         }
 
+        //Spinner listener, which takes the users actions and sets the selected party members on the recyclerview
+        //Also changes the partylogo
+        //
+        //There is an issue with the spinner because the selected party is always assigned before the spinner, so the
+        //users actions are assigned "on top" of the previously assigned data. This is an extra feature, therefore fixing
+        //this wasn't my main purpose due to the deadline of this project
 
         binding.partySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -138,11 +119,6 @@ class PartyMembersFragment : Fragment() {
                     }
                 }
             }
-        }
-
-
-        binding.buttonToMember.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_global_memberDetailsFragment)
         }
 
         setHasOptionsMenu(true)

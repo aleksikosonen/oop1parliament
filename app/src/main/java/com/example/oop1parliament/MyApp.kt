@@ -1,9 +1,6 @@
 package com.example.oop1parliament
 
 import android.app.Application
-import android.content.Context
-import android.os.Build
-import android.util.Log
 import androidx.work.*
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
@@ -15,11 +12,13 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 class MyApp : Application() {
-    
+
+    //Myapp class for Workmanager, the workmanager is set to check if the data has changed every 7 days.
+    //Also a constraint for connected network is set
+
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
     override fun onCreate() {
-        Log.d("WM/D", "oncreate")
         super.onCreate()
         delayedInit()
     }

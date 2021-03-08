@@ -16,15 +16,25 @@
             android:id="@+id/aboutTheApp"
             android:layout_width="338dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
             android:gravity="center"
             android:text="@string/aboutTheApp"
             android:textSize="16dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/edduLogo" />
+
+        <ImageView
+            android:id="@+id/edduLogo"
+            android:layout_width="203dp"
+            android:layout_height="163dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/eddu_logo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.oop1parliament.network.ParliamentMember
 
 class MemberDiffCallback: DiffUtil.ItemCallback<ParliamentMember>() {
+    //Diffcallback for member recyclerview
     override fun areItemsTheSame(oldItem: ParliamentMember, newItem: ParliamentMember): Boolean {
         return oldItem.hetekaId == newItem.hetekaId
     }

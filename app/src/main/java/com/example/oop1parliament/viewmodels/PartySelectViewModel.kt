@@ -7,11 +7,11 @@ import com.example.oop1parliament.repository.MemberRepository
 import com.example.oop1parliament.database.ParliamentMemberDB
 
 class PartySelectViewModel(application: Application): AndroidViewModel(application) {
-    val memberRepository = MemberRepository(ParliamentMemberDB.getInstance(application.applicationContext))
-    val parliamentMembers = memberRepository.members
+    //Getting live data list of parliament members from member repository
+    private val memberRepository = MemberRepository(ParliamentMemberDB.getInstance(application.applicationContext))
+    private val parliamentMembers = memberRepository.members
 
-    val parliamentParties = Transformations.map(parliamentMembers) {
-        parliamentMembers.value?.distinctBy { it.party }?.map { it.party }
-    }
+    //Filtering the parties from the members to own live data list
+    val parliamentParties = Transformations.map(parliamentMembers) { parliamentMembers.value?.distinctBy { it.party }?.map { it.party } }
 
 }

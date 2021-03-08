@@ -36,10 +36,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                app:layout_constraintTop_toBottomOf="@+id/edduLogo" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/edduLogo"
                 android:layout_width="203dp"
                 android:layout_height="163dp"
                 android:layout_marginTop="32dp"

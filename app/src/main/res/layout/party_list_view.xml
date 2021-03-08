@@ -11,7 +11,6 @@
         android:layout_margin="5dp"
         android:elevation="5dp"
         android:foregroundGravity="center"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/keskusta_logo_2020" />
+        android:scaleType="fitCenter"/>
 
 </LinearLayout>

@@ -2,6 +2,8 @@ package com.example.oop1parliament.network
 
 import androidx.room.*
 
+//Data class for ParliamentMember-object
+
 @Entity
 data class ParliamentMember(
     @PrimaryKey

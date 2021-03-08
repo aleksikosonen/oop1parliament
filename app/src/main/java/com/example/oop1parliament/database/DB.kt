@@ -6,6 +6,8 @@ import androidx.room.*
 import com.example.oop1parliament.network.MemberVote
 import com.example.oop1parliament.network.ParliamentMember
 
+
+//Dao for ParliamentMember
 @Dao
 interface ParliamentMemberDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -15,7 +17,7 @@ interface ParliamentMemberDao {
     fun getAll(): LiveData<List<ParliamentMember>>
 }
 
-
+//Database boilerplate for ParliamentMember database
 @Database(entities = [ParliamentMember::class], version = 1, exportSchema = false)
 abstract class ParliamentMemberDB: RoomDatabase() {
     abstract val parliamentMemberDao : ParliamentMemberDao
@@ -40,6 +42,7 @@ abstract class ParliamentMemberDB: RoomDatabase() {
     }
 }
 
+//Dao for MemberVote
 @Dao
 interface MemberVoteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -52,6 +55,7 @@ interface MemberVoteDao {
     fun getMember(heteka: Int): Int
 }
 
+//Database boilerplate for MemberVote Database
 @Database(entities = [MemberVote::class], version = 1, exportSchema = false)
 abstract class MemberVoteDB: RoomDatabase() {
     abstract val memberVoteDao : MemberVoteDao

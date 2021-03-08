@@ -1,7 +1,6 @@
 package com.example.oop1parliament
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,50 +14,46 @@ import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.example.oop1parliament.databinding.FragmentMemberDetailsBinding
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class MemberDetailsFragment : Fragment() {
 
     private lateinit var memberDetailsViewModel: MemberDetailsViewModel
     private lateinit var binding: FragmentMemberDetailsBinding
 
-    private var param1: String? = null
-    private var param2: String? = null
-
+    //base url for the api
     private var BASE_URL = "https://avoindata.eduskunta.fi/"
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
+        //Receive selected member heteka-number from bundle. Elvis returns (not the building) Sanna Marin
         var selectedHeteka = arguments?.getInt("heteka") ?: 1297
 
+        //Get app context
         val application = requireNotNull(activity).application
+
+        //Viewmodel factory for passing the selected hetekea for the viewmodel.
+        // Could be provided as method parameters, but I wanted to experiment with transferring the data this way
         val viewModelFactory = MemberViewModelFactory(application, selectedHeteka)
 
+        //Binding and viewmodel variables for MemberDetails fragment
         memberDetailsViewModel = ViewModelProvider(this, viewModelFactory).get(MemberDetailsViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_member_details, container, false)
 
-        memberDetailsViewModel.parliamentMembers.observe(viewLifecycleOwner) { getMemberDetails(selectedHeteka) }
+        //Observer for parliament members livedata, the function assings members details to screen
+        memberDetailsViewModel.parliamentMembers.observe(viewLifecycleOwner) { getMemberDetails() }
 
+        //Observer for members vote livedata
         memberDetailsViewModel.membersToVote.observe(viewLifecycleOwner) {
+            //Likecount text is set to zero manually, because if the member has no likes, the value is null
             binding.likeCount.text = it.find { it.hetekaId == selectedHeteka }?.likeCount.toString()
             if (binding.likeCount.text=="null") binding.likeCount.text = "0"
-        }
 
-        memberDetailsViewModel.membersToVote.observe(viewLifecycleOwner) {
-
+            //Previous comments is also set manually because if there are no comments, it is null
             var previousComments = it.find { it.hetekaId==selectedHeteka }?.comments.toString()
             if (previousComments=="null") previousComments = ""
 
+            //Comment is passed as string for the votemember-function. The function uses the DAO:s insert or update member function
+            //and therefore both comments and likes need to be assigned on the function
             binding.comment.setOnClickListener {
                 val addedComment = binding.addComment.text.toString() + "\n"
                 val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
@@ -66,6 +61,7 @@ class MemberDetailsFragment : Fragment() {
                 Toast.makeText(requireContext().applicationContext, "Lisättiin kommentti ${addedComment}", Toast.LENGTH_SHORT).show()
             }
 
+            //Like and dislike increase and decrease the likeamount by 1
             binding.dislikeButton.setOnClickListener{
                 val addedComment = ""
                 val likeAmount = binding.likeCount.text.toString().toIntOrNull() ?: 0
@@ -79,6 +75,7 @@ class MemberDetailsFragment : Fragment() {
             }
         }
 
+        //Button to moving to the comments. The selected member heteka and name are passed as bundle to the comment fragment
         binding.toDetails.setOnClickListener{view : View ->
             val bundle = bundleOf("Selected heteka" to selectedHeteka, "Name" to  memberDetailsViewModel.getMemberName() )
             view.findNavController().navigate(R.id.action_global_commentsFragment, bundle)
@@ -88,10 +85,11 @@ class MemberDetailsFragment : Fragment() {
         return binding.root
     }
 
-    private fun getMemberDetails(selectedHeteka: Int) {
+    //Function for displaying members details to the fragment
+    private fun getMemberDetails() {
         Glide.with(this)
                 .load(BASE_URL + memberDetailsViewModel.getUrl())
-                        .into(binding.lennu)
+                        .into(binding.memberPhoto)
 
         binding.memberName.text = memberDetailsViewModel.getMemberName()
 
@@ -106,16 +104,5 @@ class MemberDetailsFragment : Fragment() {
             "vihr" -> binding.logoView.setImageResource(R.drawable.vihrea)
             "liik" -> binding.logoView.setImageResource(R.drawable.liik)
         }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MemberDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

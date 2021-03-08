@@ -53,29 +53,33 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-
+    //Circle images
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
-    annotationProcessor 'androidx.room:room-compiler:2.2.6'
-
+    //Retrofit and moshi
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
     implementation "com.squareup.moshi:moshi-kotlin:1.11.0"
 
+    //Coroutines and room
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
     implementation "androidx.room:room-ktx:$room_version"
+    annotationProcessor 'androidx.room:room-compiler:2.2.6'
 
     //Multidex
     implementation 'com.android.support:multidex:1.0.3'
 
+    //Glide and lifecycle
     kapt "androidx.room:room-compiler:2.2.6"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
+    //Workmanager
     def work_version = "1.0.1"
     implementation "android.arch.work:work-runtime-ktx:$work_version"
 

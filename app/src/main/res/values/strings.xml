@@ -7,14 +7,14 @@
         Sovelluksen tekijä:\n\nAleksi Kosonen</string>
     <string-array name="parties_array">
         <item>-</item>
-        <item>Vihreät</item>
+        <item>Vihreä liitto</item>
         <item>Vasemmistoliitto</item>
-        <item>Keskusta</item>
+        <item>Suomen Keskusta</item>
         <item>Perussuomalaiset</item>
-        <item>SDP</item>
-        <item>Kristillisdemokraatit</item>
-        <item>Kokoomus</item>
-        <item>Suomen Ruotsalainen kansanpuolue</item>
+        <item>Sosiaalidemokraattinen puolue</item>
+        <item>Suomen Kristillisdemokraatit</item>
+        <item>Kansallinen Kokoomus</item>
+        <item>Ruotsalainen kansanpuolue</item>
         <item>Liike Nyt</item>
     </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>

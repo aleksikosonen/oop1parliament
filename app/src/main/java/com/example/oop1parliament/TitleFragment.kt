@@ -7,11 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.*
 import com.example.oop1parliament.databinding.FragmentTitleBinding
-import com.example.oop1parliament.viewmodels.TitleViewModel
-
-
 
 class TitleFragment : Fragment() {
     private lateinit var binding: FragmentTitleBinding
