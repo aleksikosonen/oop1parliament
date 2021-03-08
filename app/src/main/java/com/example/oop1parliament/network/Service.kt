@@ -23,7 +23,7 @@ private val retrofit = Retrofit.Builder()
 
 //MemberApiService interface for getting list of ParliamentMembers from api
 interface MemberApiService {
-    @GET("api/v1/seating/") //add here the end point
+    @GET("api/v1/seating/")
     suspend fun getMembers(): List<ParliamentMember>
 }
 

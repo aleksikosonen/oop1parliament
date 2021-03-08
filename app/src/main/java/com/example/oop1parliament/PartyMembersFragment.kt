@@ -16,8 +16,8 @@ import com.example.oop1parliament.recyclerview.MemberListAdapter
 import com.example.oop1parliament.viewmodels.PartyMembersViewModel
 
 class PartyMembersFragment : Fragment() {
-    lateinit var binding: FragmentPartyMembersBinding
-    lateinit var partyMembersViewModel : PartyMembersViewModel
+    private lateinit var binding: FragmentPartyMembersBinding
+    private lateinit var partyMembersViewModel : PartyMembersViewModel
     private lateinit var adapter: MemberListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

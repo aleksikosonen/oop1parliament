@@ -1,7 +1,6 @@
 package com.example.oop1parliament.work
 
 import android.content.Context
-import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.oop1parliament.database.ParliamentMemberDB
